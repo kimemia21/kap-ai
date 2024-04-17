@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "167400318057",
+    "project_id": "kaps-ai-gnnovation",
+    "storage_bucket": "kaps-ai-gnnovation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167400318057:android:a39014900e31b9fc35aef8",
+        "android_client_info": {
+          "package_name": "com.example.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI_60y539anckQmQollUjkKkm5nAuTxek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
