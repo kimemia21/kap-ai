@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:application/widgets/AppNavigations.dart';
 import 'package:application/widgets/firebaseAutions/FirebaseFunctions.dart';
+import 'package:application/widgets/splash.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,14 +21,26 @@ class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () =>Navigation.onIntroEnd(context) ,
+            icon: Icon(CupertinoIcons.back),
+          ),
+      ),
       backgroundColor: Colors.grey.shade100,
       body: Center(
         child: Container(
           margin: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+    
             children: [
+              Container(
+                height: MediaQuery.of(context).size.height*0.4,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset("assets/gif/loginOne.gif",fit: BoxFit.cover,),
+
+              ),
               Container(
                 margin: EdgeInsets.only(top: 20, bottom: 20),
                 child: Text(
@@ -40,7 +55,7 @@ class _loginState extends State<login> {
               //   child: Image.asset("assets/gif/google.gif"),),
               GestureDetector(
                 onTap: () {
-                  print("pressed");
+          
                   Authentication.signInWithGoogle(context: context);
                 },
                 child: Container(

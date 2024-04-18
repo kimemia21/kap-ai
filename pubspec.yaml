@@ -45,6 +45,7 @@ dependencies:
   firebase_auth: ^4.19.2
   transparent_image: ^2.0.1
   google_sign_in: ^6.2.1
+  ikchatbot: ^1.0.5
 
 dependency_overrides:
   leak_tracker_flutter_testing: 3.0.3
@@ -78,7 +79,10 @@ flutter:
     - assets/images/pngtreetwo.png 
     - assets/images/pngtreethree.png 
     - assets/images/pngtreefour.png 
-    - assets/gif/google.gif  
+    - assets/gif/google.gif
+    - assets/gif/astro_media_animation.gif
+    - assets/gif/loginOne.gif 
+
 
   
 
