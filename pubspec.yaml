@@ -84,6 +84,8 @@ flutter:
     - assets/gif/astro_media_animation.gif
     - assets/gif/loginOne.gif 
     - assets/gif/googleLogin.gif 
+    - assets/gif/loginTwo.gif
+    - assets/gif/loginThree.gif 
 
 
   

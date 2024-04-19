@@ -2,6 +2,7 @@
 
 import 'package:application/widgets/AppNavigations.dart';
 import 'package:application/widgets/firebaseAutions/FirebaseFunctions.dart';
+import 'package:application/widgets/homepage.dart';
 import 'package:application/widgets/splash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -24,33 +25,31 @@ class _loginState extends State<login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         leading: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadiusDirectional.circular(20)),
+              color: Colors.white,
+              borderRadius: BorderRadiusDirectional.circular(20)),
           child: IconButton(
-            onPressed: () => Navigation.onIntroEnd(context),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OnBoardingPage()));
+            },
             icon: Icon(CupertinoIcons.back),
           ),
         ),
       ),
-
       body: Center(
         child: Container(
           margin: EdgeInsets.all(20),
-          child: Stack(
-            children:[ 
-            
-              
-              Column(
+          child: Stack(children: [
+            Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.4,
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset(
-                    "assets/gif/loginOne.gif",
+                    "assets/gif/loginThree.gif",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -58,26 +57,23 @@ class _loginState extends State<login> {
                   margin: EdgeInsets.only(top: 20, bottom: 20),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(4),
-            
-                  child:TypeThis(
-              string: 'Click the button below to Login With Google',
-                  
-              controller: _controller,
-              speed: 50,
-              style:GoogleFonts.vt323(fontSize:24,color:Colors.green),
-              richTextMatchers: const [
-                TypeThisMatcher(
-                  'Google',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green,
-                    // decoration: TextDecoration.underline,
-                    fontStyle: FontStyle.italic,
+                  child: TypeThis(
+                    string: 'Click the button below to Login With Google',
+                    controller: _controller,
+                    speed: 100,
+                    style: GoogleFonts.vt323(fontSize: 24, color: Colors.black),
+                    richTextMatchers: const [
+                      TypeThisMatcher(
+                        'Google',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          // decoration: TextDecoration.underline,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-                  
                 ),
                 // Container(
                 //   height: MediaQuery.of(context).size.height*0.2,
@@ -88,7 +84,7 @@ class _loginState extends State<login> {
                     Authentication.signInWithGoogle(context: context);
                   },
                   child: Container(
-                      margin: EdgeInsets.only(top: 10),
+                      // margin: EdgeInsets.only(),
                       alignment: Alignment.center,
                       height: 40,
                       width: MediaQuery.of(context).size.width * 0.7,
@@ -97,16 +93,19 @@ class _loginState extends State<login> {
                           borderRadius: BorderRadiusDirectional.circular(5)),
                       child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          image:
-                              "https://j.gifs.com/yoe67W.gif")
-            
+                          image: "https://j.gifs.com/yoe67W.gif")
+
                       //  Image.network(
                       //     "https://miro.medium.com/freeze/fit/c/160/112/1*NyU8Hi9juxH7__nspK6erg.gif"),
                       ),
                 ),
-                 GestureDetector(
+                GestureDetector(
                   onTap: () {
-                    Authentication.signInWithGoogle(context: context);
+                    // Authentication.signInWithGoogle(context: context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomePage()));
                   },
                   child: Container(
                       margin: EdgeInsets.only(top: 20),
@@ -114,14 +113,17 @@ class _loginState extends State<login> {
                       height: 40,
                       width: MediaQuery.of(context).size.width * 0.7,
                       decoration: BoxDecoration(
-                         color: Colors.grey.shade300,
-                         
+                          color: Colors.grey.shade300,
                           borderRadius: BorderRadiusDirectional.circular(10)),
-                      child: Text("Login")
-                ),)
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.vt323(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      )),
+                )
               ],
-            ),]
-          ),
+            ),
+          ]),
         ),
       ),
     );
