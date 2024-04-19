@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:application/widgets/AppNavigations.dart';
+import 'package:application/widgets/ChatBot.dart';
 import 'package:application/widgets/firebaseAutions/FirebaseFunctions.dart';
 import 'package:application/widgets/homepage.dart';
 import 'package:application/widgets/splash.dart';
@@ -49,7 +50,7 @@ class _loginState extends State<login> {
                   height: MediaQuery.of(context).size.height * 0.4,
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset(
-                    "assets/gif/loginThree.gif",
+                    "assets/images/loginOne.jpg",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -105,7 +106,7 @@ class _loginState extends State<login> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomePage()));
+                            builder: (context) => ChatBot()));
                   },
                   child: Container(
                       margin: EdgeInsets.only(top: 20),
@@ -115,7 +116,9 @@ class _loginState extends State<login> {
                       decoration: BoxDecoration(
                           color: Colors.grey.shade300,
                           borderRadius: BorderRadiusDirectional.circular(10)),
-                      child: Text(
+                      child: 
+                      
+                      Text(
                         "Login",
                         style: GoogleFonts.vt323(
                             fontSize: 22, fontWeight: FontWeight.bold),

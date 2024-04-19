@@ -47,6 +47,7 @@ dependencies:
   google_sign_in: ^6.2.1
   ikchatbot: ^1.0.5
   typethis: ^1.0.0
+  kommunicate_flutter: ^1.9.0
 
 dependency_overrides:
   leak_tracker_flutter_testing: 3.0.3
@@ -86,6 +87,10 @@ flutter:
     - assets/gif/googleLogin.gif 
     - assets/gif/loginTwo.gif
     - assets/gif/loginThree.gif 
+    - assets/gif/loginFour.gif 
+    - assets/gif/loginFive.gif 
+    - assets/images/loginOne.jpg 
+    - assets/images/aiGround.jpg 
 
 
   

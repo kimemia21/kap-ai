@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Home page"),
+                  Text("Log Out"),
                   // ClipRRect(
                   //     borderRadius: BorderRadiusDirectional.circular(20),
                   //     child: Image.network(
