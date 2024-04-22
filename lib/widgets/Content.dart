@@ -35,7 +35,86 @@ class _contentState extends State<content> {
                     color: Colors.black),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [],
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(10),
+                          color: Colors.lightGreen.shade200),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              margin: EdgeInsets.all(5),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(Icons.search_sharp),
+                                    Icon(Icons.arrow_circle_right_rounded)
+                                  ])),
+                          Container(
+                              margin: EdgeInsets.all(5),
+                              child: Text(
+                                "Talk \n With a Bot",
+                                style: GoogleFonts.poppins(fontSize: 34,fontWeight:FontWeight.w500),
+                              ))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 5),
+                            height: 100,
+                            width: 170,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(10),
+                                color: Colors.indigo.shade200),
+                            child:  Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              margin: EdgeInsets.all(5),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(Icons.message),
+                                    Icon(Icons.arrow_drop_up_rounded,size: 25,)
+                                  ])),
+                          Container(
+                              margin: EdgeInsets.all(5),
+                              child: Text(
+                                "Chat With ai",
+                                style: GoogleFonts.poppins(fontSize:20,  fontWeight:FontWeight.w500),
+                              ))
+                        ],
+                      ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 5, top: 5),
+                            height: 100,
+                            width: 170,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(10),
+                                color: Colors.pink.shade100),
+                            child: Text("one"),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               )
             ],
