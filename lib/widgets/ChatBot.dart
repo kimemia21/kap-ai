@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ikchatbot/ikchatbot.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:dialogflow_grpc/dialogflow_grpc.dart';
+import 'package:typethis/typethis.dart';
 
 class ChatBot extends StatelessWidget {
   const ChatBot({super.key});
-
 
   // This widget is the root of your application.
   @override
@@ -36,16 +38,16 @@ class ChatBot extends StatelessWidget {
       botIcon: const Icon(Icons.android, color: Colors.white),
       botChatColor: Color.fromARGB(255, 104, 0, 101),
       delayBot: 100,
-      closingTime: 1,
+      closingTime: 1000,
       delayResponse: 1,
       userChatColor: Color.fromARGB(255, 228, 208, 208),
-      waitingTime: 1,
+      waitingTime: 1000,
       keywords: ["one", "two"],
       responses: ["hello", "World"],
       backgroundColor: Colors.white,
       backgroundImage:
           'https://news.uchicago.edu/sites/default/files/styles/full_width/public/images/2023-07/Human%20aware%20AI%20hero.png?itok=BL5ceKsp',
-      backgroundAssetimage: "assets/images/aiGround.jpg",
+      backgroundAssetimage: "assets/gif/chatBG.gif",
       initialGreeting:
           "Hello! \nWelcome to  Gnovation ChatBot.\nHow can I assist you today?",
       defaultResponse: "Sorry, I didn't understand your response.",
@@ -53,7 +55,7 @@ class ChatBot extends StatelessWidget {
       closingMessage: "This conversation will now close.",
       inputHint: 'Send a message',
       waitingText: 'Please wait...',
-      useAsset: false,
+      useAsset: true,
     );
 
     return MaterialApp(
@@ -77,31 +79,56 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final bool _chatIsOpened = false;
+  bool _chatIsOpened = false;
+  
+  final TypeThisController _controller = TypeThisController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Gnovation Ai'),
+          title:TypeThis(
+                    string: 'Gnovation ai',
+                    controller: _controller,
+                    speed: 100,
+                    style: GoogleFonts.vt323(fontSize: 32, color: Colors.green),
+                    richTextMatchers: const [
+                      TypeThisMatcher(
+                        'Gnovation',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                          // decoration: TextDecoration.underline,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
         ),
-        // floatingActionButton: FloatingActionButton(onPressed: () {
-        //   if(_chatIsOpened =  false) {
-        //     setState(() {
-        //     _chatIsOpened = true;
-        //     });
-        //   }else {
-        //     setState(() {
-        //       _chatIsOpened = false;
-        //     });
-        //   }
-        //
-        // },
-        // child: Icon(Icons.chat),),
         body: _chatIsOpened
             ? const Center(
                 child: Text('Welcome to my app,'),
               )
-            : ikchatbot(config: widget.chatBotConfig));
+            : Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/gif/chatBGTwo.gif",),
+              fit: BoxFit.cover)),
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  
+                    Container(
+                      height: MediaQuery.of(context).size.height*1,
+                      width: MediaQuery.of(context).size.width*1,
+                      child: ikchatbot(config: widget.chatBotConfig)),
+                  ],
+                ),
+              ),
+          
+            ));
   }
 }
