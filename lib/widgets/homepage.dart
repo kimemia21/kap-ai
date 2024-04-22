@@ -1,3 +1,4 @@
+import 'package:application/widgets/Content.dart';
 import 'package:application/widgets/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
-
-
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,13 +33,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+
   bool isOpened = false;
 
-   final GlobalKey  <SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
-   final GlobalKey<SideMenuState> _endSideMenuKey = GlobalKey<SideMenuState>();
-
-
+  final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
+  final GlobalKey<SideMenuState> _endSideMenuKey = GlobalKey<SideMenuState>();
 
   toggleMenu([bool end = false]) {
     if (end) {
@@ -63,7 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SideMenu(
-      closeIcon: Icon(Icons.close,color: Colors.black,),
+      closeIcon: Icon(
+        Icons.close,
+        color: Colors.black,
+      ),
       background: Colors.grey.shade200,
       key: _sideMenuKey,
       menu: buildMenu(),
@@ -77,27 +77,25 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             centerTitle: true,
             leading: IconButton(
-              icon: const Icon(Icons.menu_book_rounded),
+              icon: const Icon(Icons.menu_outlined),
               onPressed: () => toggleMenu(),
             ),
-            
+            actions: [
+              Container(
+                  decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      borderRadius: BorderRadiusDirectional.circular(20)),
+                  margin: EdgeInsets.all(10),
+                  width: 40,
+                  height: 40,
+                  child: ClipRRect(
+                    borderRadius: BorderRadiusDirectional.circular(20),
+                    child: Image.asset("assets/images/pngtreetwo.png"),
+                  ))
+            ],
             title: Text(widget.title),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-          ),
-          
+          body: content()
         ),
       ),
     );
@@ -114,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(left: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
+              children: [
                 CircleAvatar(
                   backgroundColor: Colors.black,
                   radius: 22.0,
@@ -122,8 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(height: 16.0),
                 Text(
                   "Hello, John Doe",
-
-                  style:GoogleFonts.poppins(color: Colors.black,fontWeight:FontWeight.normal),
+                  style: GoogleFonts.poppins(
+                      color: Colors.black, fontWeight: FontWeight.normal),
                 ),
                 SizedBox(height: 20.0),
               ],
@@ -131,8 +129,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ListTile(
             onTap: () {},
-            leading: const Icon(CupertinoIcons.home, size: 20.0, color: Colors.black),
-            title:  Text("Home",style: GoogleFonts.poppins(color: Colors.black,fontWeight:FontWeight.normal)),
+            leading: const Icon(CupertinoIcons.home,
+                size: 20.0, color: Colors.black),
+            title: Text("Home",
+                style: GoogleFonts.poppins(
+                    color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
           ),
@@ -140,32 +141,31 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {},
             leading: const Icon(CupertinoIcons.person_fill,
                 size: 20.0, color: Colors.black),
-            title:  Text("Profile",style:GoogleFonts.poppins(color: Colors.black,fontWeight:FontWeight.normal)),
+            title: Text("Profile",
+                style: GoogleFonts.poppins(
+                    color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
-      
+
             // padding: EdgeInsets.zero,
           ),
-      
- 
           ListTile(
             onTap: () {},
-            leading:
-                const Icon(CupertinoIcons.gear_alt_fill, size: 20.0, color: Colors.black),
+            leading: const Icon(CupertinoIcons.gear_alt_fill,
+                size: 20.0, color: Colors.black),
             title: const Text("Settings"),
             textColor: Colors.black,
             dense: true,
-      
+
             // padding: EdgeInsets.zero,
           ),
-           ListTile(
+          ListTile(
             onTap: () {},
-            leading:
-                const Icon(Icons.logout, size: 20.0, color: Colors.black),
+            leading: const Icon(Icons.logout, size: 20.0, color: Colors.black),
             title: const Text("Log Out"),
             textColor: Colors.black,
             dense: true,
-      
+
             // padding: EdgeInsets.zero,
           ),
         ],
