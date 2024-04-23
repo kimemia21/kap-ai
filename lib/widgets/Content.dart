@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:application/widgets/ChatBot.dart';
+import 'package:application/widgets/comingSoon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,14 +33,14 @@ class _contentState extends State<content> {
                   )),
               SizedBox(
                 height: 220,
-              
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: ()=>Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ChatBotScreen())),
-      
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatBotScreen())),
                       child: Container(
                         margin: EdgeInsets.only(left: 10),
                         height: 200,
@@ -65,7 +66,8 @@ class _contentState extends State<content> {
                                 child: Text(
                                   "Talk \nWith a Bot",
                                   style: GoogleFonts.abel(
-                                      fontSize: 34, fontWeight: FontWeight.bold),
+                                      fontSize: 34,
+                                      fontWeight: FontWeight.bold),
                                 ))
                           ],
                         ),
@@ -101,14 +103,23 @@ class _contentState extends State<content> {
                                             size: 25,
                                           )
                                         ])),
-                                Container(
-                                    margin: EdgeInsets.all(5),
-                                    child: Text(
-                                      "Chat With Ai",
-                                      style: GoogleFonts.abel(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ))
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ComingSoon()));
+                                  },
+                                  child: Container(
+                                      margin: EdgeInsets.all(5),
+                                      child: Text(
+                                        "Chat With Ai",
+                                        style: GoogleFonts.abel(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                )
                               ],
                             ),
                           ),
@@ -136,14 +147,23 @@ class _contentState extends State<content> {
                                             size: 25,
                                           )
                                         ])),
-                                Container(
-                                    margin: EdgeInsets.all(5),
-                                    child: Text(
-                                      "Serach  With Ai",
-                                      style: GoogleFonts.abel(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ))
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ComingSoon()));
+                                  },
+                                  child: Container(
+                                      margin: EdgeInsets.all(5),
+                                      child: Text(
+                                        "Serach  With Ai",
+                                        style: GoogleFonts.abel(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                )
                               ],
                             ),
                           ),
@@ -155,7 +175,6 @@ class _contentState extends State<content> {
               ),
               Container(
                 margin: EdgeInsets.all(5),
-              
                 width: MediaQuery.of(context).size.width * 1,
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
@@ -177,13 +196,9 @@ class _contentState extends State<content> {
                       ],
                     ),
                     firebaseHistory(),
-                    
                     firebaseHistory(),
-                    
                     firebaseHistory(),
-                    
                     firebaseHistory(),
-                    
                     firebaseHistory(),
                   ],
                 ),
@@ -195,23 +210,21 @@ class _contentState extends State<content> {
 }
 
 Widget firebaseHistory(
-  
-  // {required context, required info}
-  ) {
+
+    // {required context, required info}
+    ) {
   return Container(
     margin: EdgeInsets.only(bottom: 5),
     decoration: BoxDecoration(
-      color: Colors.grey.shade200,
-      
-      borderRadius: BorderRadiusDirectional.circular(10)),
-    child:ListTile(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadiusDirectional.circular(10)),
+    child: ListTile(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       leading: Icon(CupertinoIcons.news),
-
-      title: Text("We are testing this data",style: GoogleFonts.abel(
-                    color: Colors.black, fontWeight: FontWeight.bold)),
-                    trailing: Icon(Icons.more_vert),
-                  
-    ) ,
+      title: Text("We are testing this data",
+          style: GoogleFonts.abel(
+              color: Colors.black, fontWeight: FontWeight.bold)),
+      trailing: Icon(Icons.more_vert),
+    ),
   );
 }

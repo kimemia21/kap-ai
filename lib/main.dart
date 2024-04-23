@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.hasData) {
             return  const HomePage();
           } else {
-            return const HomePage();
+            return const OnBoardingPage();
           }
         },
       ),

@@ -102,11 +102,10 @@ class _loginState extends State<login> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Authentication.signInWithGoogle(context: context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChatBotScreen()));
+                    {
+                      Authentication.signInWithGoogle(context: context);
+                    }
+                    ;
                   },
                   child: Container(
                       margin: EdgeInsets.only(top: 20),
@@ -116,9 +115,7 @@ class _loginState extends State<login> {
                       decoration: BoxDecoration(
                           color: Colors.grey.shade300,
                           borderRadius: BorderRadiusDirectional.circular(10)),
-                      child: 
-                      
-                      Text(
+                      child: Text(
                         "Login",
                         style: GoogleFonts.vt323(
                             fontSize: 22, fontWeight: FontWeight.bold),

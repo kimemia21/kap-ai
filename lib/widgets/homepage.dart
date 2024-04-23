@@ -90,7 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 40,
                   child: ClipRRect(
                     borderRadius: BorderRadiusDirectional.circular(20),
-                    child: Image.asset("assets/images/pngtreetwo.png"),
+                    child:FirebaseAuth.instance.currentUser!=null?
+                    Image.network("${FirebaseAuth.instance.currentUser!.photoURL}"):
+                     Image.asset("  assets/images/pngtreetwo.png"),
                   ))
             ],
             title: Text(widget.title,style: GoogleFonts.roboto(fontWeight:FontWeight.bold),),
@@ -113,13 +115,22 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 22.0,
-                ),
+                  Container(
+                  decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      borderRadius: BorderRadiusDirectional.circular(20)),
+                  margin: EdgeInsets.all(10),
+                  width: 40,
+                  height: 40,
+                  child: ClipRRect(
+                    borderRadius: BorderRadiusDirectional.circular(20),
+                    child:FirebaseAuth.instance.currentUser!=null?
+                    Image.network("${FirebaseAuth.instance.currentUser!.photoURL}"):
+                     Image.asset("  assets/images/pngtreetwo.png"),
+                  )),
                 SizedBox(height: 16.0),
                 Text(
-                  "Hello, John Doe",
+                  "Hello, ${FirebaseAuth.instance.currentUser!.displayName}",
                   style: GoogleFonts.poppins(
                       color: Colors.black, fontWeight: FontWeight.normal),
                 ),
