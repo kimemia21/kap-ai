@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Liquid Shrink SideMenu',
+      title: 'Gnovation ai',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Image.asset("assets/images/pngtreetwo.png"),
                   ))
             ],
-            title: Text(widget.title),
+            title: Text(widget.title,style: GoogleFonts.vt323(fontWeight:FontWeight.w300),),
           ),
           body: content()
         ),
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: const Icon(CupertinoIcons.home,
                 size: 20.0, color: Colors.black),
             title: Text("Home",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.vt323(
                     color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: const Icon(CupertinoIcons.person_fill,
                 size: 20.0, color: Colors.black),
             title: Text("Profile",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.vt323(
                     color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
@@ -153,7 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {},
             leading: const Icon(CupertinoIcons.gear_alt_fill,
                 size: 20.0, color: Colors.black),
-            title: const Text("Settings"),
+            title: Text("Settings",style: GoogleFonts.vt323(
+                    color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
 
@@ -162,7 +163,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.logout, size: 20.0, color: Colors.black),
-            title: const Text("Log Out"),
+            title:  Text("Log Out",style: GoogleFonts.vt323(
+                    color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
 

@@ -48,8 +48,8 @@ dependencies:
   ikchatbot: ^1.0.5
   typethis: ^1.0.0
   simple_icons: ^10.1.3
-  dialogflow_grpc: ^0.2.9
-  speech_to_text: ^6.1.1
+  # dialogflow_grpc: ^0.2.9
+  # speech_to_text: ^6.1.1
   shrink_sidemenu: ^2.0.0+2-null-safety
 
 dependency_overrides:

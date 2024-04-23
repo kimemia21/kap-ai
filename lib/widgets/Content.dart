@@ -25,14 +25,14 @@ class _contentState extends State<content> {
               Container(
                   margin: EdgeInsets.only(top: 10, bottom: 10),
                   child: Text(
-                    "How may i help \n you today?",
-                    style: GoogleFonts.poppins(fontSize: 34),
+                    "How may i help \nyou today?",
+                    style: GoogleFonts.vt323(fontSize: 34),
                   )),
               Container(
-                height: 300,
+                height: 220,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadiusDirectional.circular(10),
-                    color: Colors.black),
+                    color: Colors.grey.shade300),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -59,8 +59,9 @@ class _contentState extends State<content> {
                           Container(
                               margin: EdgeInsets.all(5),
                               child: Text(
-                                "Talk \n With a Bot",
-                                style: GoogleFonts.poppins(fontSize: 34,fontWeight:FontWeight.w500),
+                                "Talk \nWith a Bot",
+                                style: GoogleFonts.vt323(
+                                    fontSize: 34, fontWeight: FontWeight.w500),
                               ))
                         ],
                       ),
@@ -79,27 +80,32 @@ class _contentState extends State<content> {
                                 borderRadius:
                                     BorderRadiusDirectional.circular(10),
                                 color: Colors.indigo.shade200),
-                            child:  Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.all(5),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Icon(Icons.message),
-                                    Icon(Icons.arrow_drop_up_rounded,size: 25,)
-                                  ])),
-                          Container(
-                              margin: EdgeInsets.all(5),
-                              child: Text(
-                                "Chat With ai",
-                                style: GoogleFonts.poppins(fontSize:20,  fontWeight:FontWeight.w500),
-                              ))
-                        ],
-                      ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(Icons.message),
+                                          Icon(
+                                            Icons.arrow_circle_right_rounded,
+                                            size: 25,
+                                          )
+                                        ])),
+                                Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Text(
+                                      "Chat With Ai",
+                                      style: GoogleFonts.vt323(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ))
+                              ],
+                            ),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5, top: 5),
@@ -109,11 +115,68 @@ class _contentState extends State<content> {
                                 borderRadius:
                                     BorderRadiusDirectional.circular(10),
                                 color: Colors.pink.shade100),
-                            child: Text("one"),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(Icons.message_sharp),
+                                          Icon(
+                                            Icons.arrow_circle_right_rounded,
+                                            size: 25,
+                                          )
+                                        ])),
+                                Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Text(
+                                      "Serach  With Ai",
+                                      style: GoogleFonts.vt323(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ))
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     )
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(5),
+              
+                width: MediaQuery.of(context).size.width * 1,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadiusDirectional.circular(10),
+                    color: Colors.grey.shade300),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("History",
+                            style: GoogleFonts.vt323(
+                                fontSize: 32,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal)),
+                      ],
+                    ),
+                    firebaseHistory(),
+                    
+                    firebaseHistory(),
+                    
+                    firebaseHistory(),
+                    
+                    firebaseHistory(),
+                    
+                    firebaseHistory(),
                   ],
                 ),
               )
@@ -121,4 +184,24 @@ class _contentState extends State<content> {
           )),
     );
   }
+}
+
+Widget firebaseHistory(
+  
+  // {required context, required info}
+  ) {
+  return Container(
+    margin: EdgeInsets.only(bottom: 5),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade200,
+      
+      borderRadius: BorderRadiusDirectional.circular(10)),
+    child:ListTile(
+      leading: Icon(Icons.earbuds),
+      title: Text("we are testing this data",style: GoogleFonts.vt323(
+                    color: Colors.black, fontWeight: FontWeight.normal)),
+                    trailing: Icon(Icons.more_vert),
+                  
+    ) ,
+  );
 }
