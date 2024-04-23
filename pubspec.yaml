@@ -53,6 +53,8 @@ dependencies:
   shrink_sidemenu: ^2.0.0+2-null-safety
   dialogflow_flutter_plus: ^0.0.1
   bubble: ^1.2.1
+  google_generative_ai: ^0.3.1
+  flutter_gemini: ^2.0.3
 
 
 dependency_overrides:

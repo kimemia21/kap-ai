@@ -27,14 +27,12 @@ class _contentState extends State<content> {
               Container(
                   margin: EdgeInsets.only(top: 10, bottom: 10),
                   child: Text(
-                    "How may i help \nyou today?",
-                    style: GoogleFonts.vt323(fontSize: 34),
+                    "How may I help \nyou today?",
+                    style: GoogleFonts.roboto(fontSize: 34),
                   )),
-              Container(
+              SizedBox(
                 height: 220,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(10),
-                    color: Colors.grey.shade300),
+              
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -48,7 +46,7 @@ class _contentState extends State<content> {
                         width: 200,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadiusDirectional.circular(10),
-                            color: Colors.lightGreen.shade200),
+                            color: Colors.lightGreen.shade400),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,15 +57,15 @@ class _contentState extends State<content> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Icon(Icons.search_sharp),
+                                      Icon(Icons.message_rounded),
                                       Icon(Icons.arrow_circle_right_rounded)
                                     ])),
                             Container(
                                 margin: EdgeInsets.all(5),
                                 child: Text(
                                   "Talk \nWith a Bot",
-                                  style: GoogleFonts.vt323(
-                                      fontSize: 34, fontWeight: FontWeight.w500),
+                                  style: GoogleFonts.abel(
+                                      fontSize: 34, fontWeight: FontWeight.bold),
                                 ))
                           ],
                         ),
@@ -97,7 +95,7 @@ class _contentState extends State<content> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Icon(Icons.message),
+                                          Icon(Icons.messenger_outline_sharp),
                                           Icon(
                                             Icons.arrow_circle_right_rounded,
                                             size: 25,
@@ -107,9 +105,9 @@ class _contentState extends State<content> {
                                     margin: EdgeInsets.all(5),
                                     child: Text(
                                       "Chat With Ai",
-                                      style: GoogleFonts.vt323(
+                                      style: GoogleFonts.abel(
                                           fontSize: 20,
-                                          fontWeight: FontWeight.w400),
+                                          fontWeight: FontWeight.bold),
                                     ))
                               ],
                             ),
@@ -132,7 +130,7 @@ class _contentState extends State<content> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Icon(Icons.message_sharp),
+                                          Icon(Icons.search),
                                           Icon(
                                             Icons.arrow_circle_right_rounded,
                                             size: 25,
@@ -142,9 +140,9 @@ class _contentState extends State<content> {
                                     margin: EdgeInsets.all(5),
                                     child: Text(
                                       "Serach  With Ai",
-                                      style: GoogleFonts.vt323(
+                                      style: GoogleFonts.abel(
                                           fontSize: 20,
-                                          fontWeight: FontWeight.w400),
+                                          fontWeight: FontWeight.bold),
                                     ))
                               ],
                             ),
@@ -168,11 +166,14 @@ class _contentState extends State<content> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("History",
-                            style: GoogleFonts.vt323(
-                                fontSize: 32,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal)),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          child: Text("History",
+                              style: GoogleFonts.abel(
+                                  fontSize: 22,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                       ],
                     ),
                     firebaseHistory(),
@@ -204,9 +205,11 @@ Widget firebaseHistory(
       
       borderRadius: BorderRadiusDirectional.circular(10)),
     child:ListTile(
-      leading: Icon(Icons.earbuds),
-      title: Text("we are testing this data",style: GoogleFonts.vt323(
-                    color: Colors.black, fontWeight: FontWeight.normal)),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      leading: Icon(CupertinoIcons.news),
+
+      title: Text("We are testing this data",style: GoogleFonts.abel(
+                    color: Colors.black, fontWeight: FontWeight.bold)),
                     trailing: Icon(Icons.more_vert),
                   
     ) ,

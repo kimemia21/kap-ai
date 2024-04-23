@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Image.asset("assets/images/pngtreetwo.png"),
                   ))
             ],
-            title: Text(widget.title,style: GoogleFonts.vt323(fontWeight:FontWeight.w300),),
+            title: Text(widget.title,style: GoogleFonts.roboto(fontWeight:FontWeight.bold),),
           ),
           body: content()
         ),
