@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:application/widgets/ChatBot.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class content extends StatefulWidget {
@@ -36,34 +38,39 @@ class _contentState extends State<content> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 10),
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(10),
-                          color: Colors.lightGreen.shade200),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.all(5),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Icon(Icons.search_sharp),
-                                    Icon(Icons.arrow_circle_right_rounded)
-                                  ])),
-                          Container(
-                              margin: EdgeInsets.all(5),
-                              child: Text(
-                                "Talk \nWith a Bot",
-                                style: GoogleFonts.vt323(
-                                    fontSize: 34, fontWeight: FontWeight.w500),
-                              ))
-                        ],
+                    GestureDetector(
+                      onTap: ()=>Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => ChatBotScreen())),
+      
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10),
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadiusDirectional.circular(10),
+                            color: Colors.lightGreen.shade200),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.all(5),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(Icons.search_sharp),
+                                      Icon(Icons.arrow_circle_right_rounded)
+                                    ])),
+                            Container(
+                                margin: EdgeInsets.all(5),
+                                child: Text(
+                                  "Talk \nWith a Bot",
+                                  style: GoogleFonts.vt323(
+                                      fontSize: 34, fontWeight: FontWeight.w500),
+                                ))
+                          ],
+                        ),
                       ),
                     ),
                     Container(

@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyHomePage(title: 'Gnnovation Ai'),
+      home:  MyHomePage(title: 'Gnnovation Ai'),
     );
   }
 }

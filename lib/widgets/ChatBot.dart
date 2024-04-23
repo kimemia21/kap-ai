@@ -1,140 +1,156 @@
-import 'package:application/widgets/homepage.dart';
+
+import 'package:dialogflow_flutter_plus/googleAuth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:dialogflow_flutter_plus/dialogflowFlutter.dart';
+import 'package:bubble/bubble.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ikchatbot/ikchatbot.dart';
-import 'package:simple_icons/simple_icons.dart';
 import 'package:typethis/typethis.dart';
 
-class ChatBot extends StatelessWidget {
-  const ChatBot({super.key});
 
-  // This widget is the root of your application.
+
+class ChatBotScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    IkChatBotConfig chatBotConfig = IkChatBotConfig(
-      //SMTP Rating to your mail Settings
-      ratingIconYes: const Icon(Icons.star),
-      ratingIconNo: const Icon(Icons.star_border),
-      ratingIconColor: Colors.black,
-      ratingBackgroundColor: Colors.white,
-      ratingButtonText: 'Submit Rating',
-      thankyouText: 'Thanks for your rating!',
-      ratingText: 'Rate your experience:',
-      ratingTitle: 'Thank you for using the chatbot!',
-      body: 'This is a test email sent from Flutter and Dart.',
-      subject: 'Test Rating',
-      recipient: 'recipient@example.com',
-      isSecure: false,
-      senderName: 'Your Name',
-      smtpUsername: 'Your Email',
-      smtpPassword: 'your password',
-      smtpServer: 'stmp.gmail.com',
-      smtpPort: 587,
-      //Settings to your system Configurations
-      sendIcon: const Icon(Icons.send, color: Colors.black),
-      userIcon: const Icon(SimpleIcons.andela, color: Colors.white),
-      botIcon: const Icon(Icons.android, color: Colors.white),
-      botChatColor: Color.fromARGB(255, 104, 0, 101),
-      delayBot: 100,
-      closingTime: 1000,
-      delayResponse: 1,
-      userChatColor: Color.fromARGB(255, 228, 208, 208),
-      waitingTime: 1000,
-      keywords: ["one", "two"],
-      responses: ["hello", "World"],
-      backgroundColor: Colors.white,
-      backgroundImage:
-          'https://news.uchicago.edu/sites/default/files/styles/full_width/public/images/2023-07/Human%20aware%20AI%20hero.png?itok=BL5ceKsp',
-      backgroundAssetimage: "assets/gif/chatBG.gif",
-      initialGreeting:
-          "Hello! \nWelcome to  Gnovation ChatBot.\nHow can I assist you today?",
-      defaultResponse: "Sorry, I didn't understand your response.",
-      inactivityMessage: "Is there anything else you need help with?",
-      closingMessage: "This conversation will now close.",
-      inputHint: 'Send a message',
-      waitingText: 'Please wait...',
-      useAsset: true,
-    );
-
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: MyHomePage(chatBotConfig: chatBotConfig),
-    );
-  }
+  ChatBotScreenState createState() => ChatBotScreenState();
 }
 
-class MyHomePage extends StatefulWidget {
-  final IkChatBotConfig chatBotConfig;
-
-  const MyHomePage({Key? key, required this.chatBotConfig}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  bool _chatIsOpened = false;
-
+class ChatBotScreenState extends State<ChatBotScreen> {
+  final messageInsert = TextEditingController();
+  
   final TypeThisController _controller = TypeThisController();
+
+  List<Map> messsages = [];
+  void response(query) async {
+    AuthGoogle authGoogle =
+        await AuthGoogle(fileJson: "assets/chatapi.json")
+            .build();
+    DialogFlow dialogflow = DialogFlow(authGoogle: authGoogle, language: "en");
+    AIResponse aiResponse = await dialogflow.detectIntent(query);
+    setState(() {
+      messsages.insert(0, {
+        "data": 0,
+        "message": aiResponse.getListMessage()?[0]["text"]["text"][0].toString()
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage())),
-              icon: Icon(Icons.arrow_back)),
-          centerTitle: true,
-          title: TypeThis(
-            string: 'Gnovation ai',
-            controller: _controller,
-            speed: 100,
-            style: GoogleFonts.vt323(fontSize: 32, color: Colors.green),
-            richTextMatchers: const [
-              TypeThisMatcher(
-                'Gnovation',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                  // decoration: TextDecoration.underline,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 70,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
           ),
         ),
-        body: _chatIsOpened
-            ? const Center(
-                child: Text('Welcome to my app,'),
-              )
-            : Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                          "assets/gif/chatBGTwo.gif",
+        elevation: 10,
+        title:TypeThis(
+                    string: 'Gnovation chat Bot',
+                    controller: _controller,
+                    speed: 100,
+                    style: GoogleFonts.vt323(fontSize: 24, color: Colors.black),
+                    richTextMatchers: const [
+                      TypeThisMatcher(
+                        'Gnovation',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          // decoration: TextDecoration.underline,
+                          fontStyle: FontStyle.italic,
                         ),
-                        fit: BoxFit.cover)),
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          height: MediaQuery.of(context).size.height * 1,
-                          width: MediaQuery.of(context).size.width * 1,
-                          child: ikchatbot(config: widget.chatBotConfig)),
+                      ),
                     ],
-                  ),
+                  ),),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Flexible(
+                child: ListView.builder(
+                    reverse: true,
+                    itemCount: messsages.length,
+                    itemBuilder: (context, index) => chat(
+                        messsages[index]["message"].toString(),
+                        messsages[index]["data"]))),
+            Divider(
+              height: 6.0,
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                      child: TextField(
+                    controller: messageInsert,
+                    decoration: InputDecoration.collapsed(
+                        hintText: "Send your message",
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18.0)),
+                  )),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.send,
+                          size: 30.0,
+                        ),
+                        onPressed: () {
+                          if (messageInsert.text.isEmpty) {
+                            print("empty message");
+                          } else {
+                            setState(() {
+                              messsages.insert(0,
+                                  {"data": 1, "message": messageInsert.text});
+                            });
+                            response(messageInsert.text);
+                            messageInsert.clear();
+                          }
+                        }),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 15.0,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget chat(String message, int data) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Bubble(
+          radius: Radius.circular(15.0),
+          color: data == 0 ? Colors.blue : Colors.orangeAccent,
+          elevation: 0.0,
+          alignment: data == 0 ? Alignment.topLeft : Alignment.topRight,
+          nip: data == 0 ? BubbleNip.leftBottom : BubbleNip.rightTop,
+          child: Padding(
+            padding: EdgeInsets.all(2.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: AssetImage(
+                      data == 0 ? "assets/gif/robot.gif" : "assets/images/UserHolder.png"),
                 ),
-              ));
+                SizedBox(
+                  width: 10.0,
+                ),
+                Flexible(
+                    child: Text(
+                  message,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ))
+              ],
+            ),
+          )),
+    );
   }
 }

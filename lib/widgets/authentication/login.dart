@@ -106,7 +106,7 @@ class _loginState extends State<login> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChatBot()));
+                            builder: (context) => ChatBotScreen()));
                   },
                   child: Container(
                       margin: EdgeInsets.only(top: 20),

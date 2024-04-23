@@ -51,6 +51,9 @@ dependencies:
   # dialogflow_grpc: ^0.2.9
   # speech_to_text: ^6.1.1
   shrink_sidemenu: ^2.0.0+2-null-safety
+  dialogflow_flutter_plus: ^0.0.1
+  bubble: ^1.2.1
+
 
 dependency_overrides:
   leak_tracker_flutter_testing: 3.0.3
@@ -95,7 +98,13 @@ flutter:
     - assets/images/loginOne.jpg 
     - assets/images/aiGround.jpg 
     - assets/images/chatBG.jpeg 
-    - assets/gif/chatBGTwo.gif 
+    - assets/gif/chatBGTwo.gif
+    - assets/images/chatOne.jpg
+    - assets/images/chatTwo.jpg
+    - assets/gif/robot.gif
+    - assets/chatapi.json  
+    - assets/images/UserHolder.png
+
 
 
 
