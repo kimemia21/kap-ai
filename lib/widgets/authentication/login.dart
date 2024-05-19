@@ -2,6 +2,7 @@
 
 import 'package:application/widgets/AppNavigations.dart';
 import 'package:application/widgets/ChatBot.dart';
+import 'package:application/widgets/Content.dart';
 import 'package:application/widgets/firebaseAutions/FirebaseFunctions.dart';
 import 'package:application/widgets/homepage.dart';
 import 'package:application/widgets/splash.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:typethis/typethis.dart';
@@ -140,14 +142,14 @@ class _loginState extends State<login> {
                             Text(
                               "To Access your account",
                               style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w300, fontSize: 16),
+                                  fontWeight: FontWeight.w400, fontSize: 18,color:Colors.black54),
                             )
                           ],
                         ),
                       ),
                       Container(
-                          child: Image.network(
-                        "https://cdn3d.iconscout.com/3d/premium/thumb/chat-bot-5379962-4497578.png?f=webp",
+                          child: Image.asset(
+                        "assets/images/login.webp",
                         fit: BoxFit.contain,
                         height: 250,
                         width: MediaQuery.of(context).size.width * 0.5,
@@ -195,6 +197,10 @@ class _loginState extends State<login> {
                   GestureDetector(
                     onTap: () {
                       Authentication.signInWithGoogle(context: context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return HomePage();
+                      }));
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -207,8 +213,9 @@ class _loginState extends State<login> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.network(
-                              "https://ouch-cdn2.icons8.com/VGHyfDgzIiyEwg3RIll1nYupfj653vnEPRLr0AeoJ8g/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvODg2/LzRjNzU2YThjLTQx/MjgtNGZlZS04MDNl/LTAwMTM0YzEwOTMy/Ny5wbmc.png",
+                          Image.asset(
+                            "assets/images/google.png"
+                              ,
                               height: 35),
                           Text(
                             "oogle",

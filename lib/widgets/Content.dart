@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:ui';
+
 import 'package:application/widgets/ChatBot.dart';
 import 'package:application/widgets/comingSoon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,163 +22,78 @@ class _contentState extends State<content> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(8),
       child: Container(
-         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue, Colors.red],
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadiusDirectional.circular(5),
+          gradient: LinearGradient(
+              colors: [Colors.grey.shade200, Colors.blue.shade100],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-            ),
-          ),
-
+              stops: [2.2, 0.8]),
+        ),
         child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                  height: 70,
+                  width: 70,
+                  child: ClipRRect(
+                    child: Image.asset("assets/images/UserHolder.png"),
+                    borderRadius: BorderRadiusDirectional.circular(20),
+                  ),
+                ),
+                Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(top: 10),
                     child: Text(
-                      "How may I help \nyou today?",
-                      style: GoogleFonts.roboto(fontSize: 34),
+                      "Welcome to",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600, fontSize: 28),
                     )),
-                SizedBox(
-                  height: 220,
+                Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      "Gnnovation Ai",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600, fontSize: 24),
+                    )),
+                Container(
+                  height: 70,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadiusDirectional.circular(25)),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChatBotScreen())),
-                        child: Container(
-                          margin: EdgeInsets.only(left: 10),
-                          height: 200,
-                          width: MediaQuery.of(context).size.width*0.45,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadiusDirectional.circular(10),
-                              color: Colors.lightGreen.shade400),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.all(5),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(Icons.message_rounded),
-                                        Icon(Icons.arrow_circle_right_rounded)
-                                      ])),
-                              Container(
-                                  margin: EdgeInsets.all(5),
-                                  child: Text(
-                                    "Talk \nWith a Bot",
-                                    style: GoogleFonts.abel(
-                                        fontSize: 34,
-                                        fontWeight: FontWeight.bold),
-                                  ))
-                            ],
-                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        padding: EdgeInsets.only(left: 12),
+                       
+                        child: Text(
+                          "Ask me anything...",
+                          style: GoogleFonts.poppins(
+                            fontWeight:FontWeight.w400,
+                            color:Colors.black54,
+                            fontSize:18),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ComingSoon()));},
-                        child: Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 5),
-                                height: 100,
-                                width: 170,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadiusDirectional.circular(10),
-                                    color: Colors.indigo.shade200),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.all(5),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Icon(Icons.messenger_outline_sharp),
-                                              Icon(
-                                                Icons.arrow_circle_right_rounded,
-                                                size: 25,
-                                              )
-                                            ])),
-                                    Container(
-                                        margin: EdgeInsets.all(5),
-                                        child: Text(
-                                          "Chat With Ai",
-                                          style: GoogleFonts.abel(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                   onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ComingSoon()));
-                                      },
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 5, top: 5),
-                                  height: 100,
-                                  width: 170,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadiusDirectional.circular(10),
-                                      color: Colors.pink.shade100),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.all(5),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Icon(Icons.search),
-                                                Icon(
-                                                  Icons.arrow_circle_right_rounded,
-                                                  size: 25,
-                                                )
-                                              ])),
-                                      Container(
-                                          margin: EdgeInsets.all(5),
-                                          child: Text(
-                                            "Serach  With Ai",
-                                            style: GoogleFonts.abel(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                      Container(
+                        padding: EdgeInsets.only(right: 10,left: 10),
+                        width: 80,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(CupertinoIcons.photo_camera),
+                            Icon(Icons.mic,color: Colors.black54,)
+                          
+                          ],
                         ),
                       )
                     ],
