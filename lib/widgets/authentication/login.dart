@@ -62,7 +62,7 @@ class _loginState extends State<login> {
                     string: 'Click the button below to Login With Google',
                     controller: _controller,
                     speed: 100,
-                    style: GoogleFonts.vt323(fontSize: 24, color: Colors.black),
+                    style: GoogleFonts.vt323(fontSize: 18, color: Colors.black),
                     richTextMatchers: const [
                       TypeThisMatcher(
                         'Google',

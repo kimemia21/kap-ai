@@ -55,6 +55,24 @@ dependencies:
   bubble: ^1.2.1
   google_generative_ai: ^0.3.1
   flutter_gemini: ^2.0.3
+  flutter_launcher_icons: ^0.13.1
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/aiGround.jpg"
+  min_sdk_android: 16 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/images/aiGround.jpg"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/aiGround.jpg"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/aiGround.jpg"  
 
 
 dependency_overrides:

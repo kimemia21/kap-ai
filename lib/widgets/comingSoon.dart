@@ -20,9 +20,10 @@ class _ComingSoonState extends State<ComingSoon> {
             },
             icon: Icon(Icons.arrow_back)),
       ),
-    );
-    Center(
+      body: Center(
       child: Text("in development"),
+    ),
     );
+   
   }
 }
