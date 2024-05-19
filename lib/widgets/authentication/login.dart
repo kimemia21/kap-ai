@@ -45,14 +45,14 @@ class _loginState extends State<login> {
         decoration: InputDecoration(
           hintText: name,
           border: InputBorder.none,
-          hintStyle: GoogleFonts.poppins(fontWeight: FontWeight.w400),
+          hintStyle: GoogleFonts.poppins(fontWeight: FontWeight.w500),
           icon: icon,
         ),
       ),
     );
   }
 
-    Widget PasswordTextField(
+  Widget PasswordTextField(
       {required icon,
       required TextEditingController controller,
       required String name}) {
@@ -67,26 +67,26 @@ class _loginState extends State<login> {
           borderRadius: BorderRadiusDirectional.circular(10)),
       child: TextFormField(
         obscureText: obsecure,
-        
         controller: controller,
         decoration: InputDecoration(
-          suffix: IconButton(onPressed: (){
-            setState(() {
-              obsecure=!obsecure;
-            });
-          }, icon:Icon(obsecure?Icons.visibility_off:Icons.visibility,color: Colors.black54,))
-          
-          ,
-        
+          suffix: IconButton(
+              onPressed: () {
+                setState(() {
+                  obsecure = !obsecure;
+                });
+              },
+              icon: Icon(
+                obsecure ? Icons.visibility_off : Icons.visibility,
+                color: Colors.black54,
+              )),
           hintText: name,
           border: InputBorder.none,
-          hintStyle: GoogleFonts.poppins(fontWeight: FontWeight.w400),
+          hintStyle: GoogleFonts.poppins(fontWeight: FontWeight.w500),
           icon: icon,
         ),
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -149,29 +149,74 @@ class _loginState extends State<login> {
                           child: Image.network(
                         "https://cdn3d.iconscout.com/3d/premium/thumb/chat-bot-5379962-4497578.png?f=webp",
                         fit: BoxFit.contain,
-                        height: 300,
+                        height: 250,
                         width: MediaQuery.of(context).size.width * 0.5,
                       ))
                     ],
                   ),
-
-
-              userTextField(icon: Icon(CupertinoIcons.person,size: 22,), controller:_userName, name:"Username"),
-              PasswordTextField(icon:Icon(CupertinoIcons.padlock,size: 22,) , controller: _password, name: "Password"),
-              Container(
-                alignment: Alignment.center,
-                height: 65,
-               width: MediaQuery.of(context).size.width * 0.9,
-               decoration: BoxDecoration(color: Colors.blue,
-               borderRadius: BorderRadiusDirectional.circular(10)
-               ),
-   
-                margin: EdgeInsets.only(top: 10),
-                child: Text("Sign in",style: GoogleFonts.poppins(
-                  fontSize:20,
-                  fontWeight:FontWeight.bold,
-                  color:Colors.white),),)
-         
+                  userTextField(
+                      icon: Icon(
+                        CupertinoIcons.person,
+                        size: 22,
+                      ),
+                      controller: _userName,
+                      name: "Username"),
+                  PasswordTextField(
+                      icon: Icon(
+                        CupertinoIcons.padlock,
+                        size: 22,
+                      ),
+                      controller: _password,
+                      name: "Password"),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 65,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadiusDirectional.circular(10)),
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text(
+                      "Sign in",
+                      style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      "Or Sign in With",
+                      style: GoogleFonts.poppins(),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 65,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadiusDirectional.circular(25)),
+                    margin: EdgeInsets.only(top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                
+                      children: [
+                        Image.network(
+                            "https://ouch-cdn2.icons8.com/VGHyfDgzIiyEwg3RIll1nYupfj653vnEPRLr0AeoJ8g/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvODg2/LzRjNzU2YThjLTQx/MjgtNGZlZS04MDNl/LTAwMTM0YzEwOTMy/Ny5wbmc.png",
+                            height: 50),
+                        Text(
+                          "oogle",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
