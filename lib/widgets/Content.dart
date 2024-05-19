@@ -22,6 +22,7 @@ Widget displayContent(
   return Container(
     height: 20,
     padding: EdgeInsets.all(8),
+    margin: EdgeInsets.all(5),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadiusDirectional.circular(20),
@@ -33,9 +34,12 @@ Widget displayContent(
           icon,
           color: color,
         ),
-        Text(
-          title,
-          style: GoogleFonts.poppins(),
+        Container(
+          margin: EdgeInsets.only(right: 5,left: 5),
+          child: Text(
+            title,
+            style: GoogleFonts.poppins(),
+          ),
         )
       ],
     ),
@@ -128,15 +132,21 @@ class _contentState extends State<content> {
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   width: MediaQuery.of(context).size.width,
-                  height: 200,
+                  height: 50,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),
                     children: [
                       displayContent(
-                          icon: CupertinoIcons.pencil,
-                          title: "Gnnovation",
-                          color: Colors.blue)
+                          icon: CupertinoIcons.pencil_ellipsis_rectangle,
+                          title: "Gnnovation Ai ",
+                          color: Colors.blue),
+                      displayContent(
+                          icon: CupertinoIcons.text_bubble_fill,
+                          title: "ChatBot",
+                          color: Colors.green.shade300),
+                      displayContent(icon: CupertinoIcons.rocket, title: "Gemini Ai", color: Colors.black54) ,
+                      displayContent(icon: CupertinoIcons.moon_circle_fill, title: "About Us", color: Colors.yellow.shade600)   
                     ],
                   ),
                 )
