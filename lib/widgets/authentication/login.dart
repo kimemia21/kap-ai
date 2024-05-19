@@ -170,7 +170,7 @@ class _loginState extends State<login> {
                       name: "Password"),
                   Container(
                     alignment: Alignment.center,
-                    height: 65,
+                    height: 55,
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
                         color: Colors.blue,
@@ -186,35 +186,39 @@ class _loginState extends State<login> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    margin: EdgeInsets.only(top: 20, bottom: 20),
                     child: Text(
                       "Or Sign in With",
-                      style: GoogleFonts.poppins(),
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 65,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadiusDirectional.circular(25)),
-                    margin: EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                
-                      children: [
-                        Image.network(
-                            "https://ouch-cdn2.icons8.com/VGHyfDgzIiyEwg3RIll1nYupfj653vnEPRLr0AeoJ8g/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvODg2/LzRjNzU2YThjLTQx/MjgtNGZlZS04MDNl/LTAwMTM0YzEwOTMy/Ny5wbmc.png",
-                            height: 50),
-                        Text(
-                          "oogle",
-                          style: GoogleFonts.poppins(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black),
-                        ),
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      Authentication.signInWithGoogle(context: context);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 55,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadiusDirectional.circular(25)),
+                      margin: EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.network(
+                              "https://ouch-cdn2.icons8.com/VGHyfDgzIiyEwg3RIll1nYupfj653vnEPRLr0AeoJ8g/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvODg2/LzRjNzU2YThjLTQx/MjgtNGZlZS04MDNl/LTAwMTM0YzEwOTMy/Ny5wbmc.png",
+                              height: 35),
+                          Text(
+                            "oogle",
+                            style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
