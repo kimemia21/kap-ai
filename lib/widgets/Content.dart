@@ -17,6 +17,31 @@ class content extends StatefulWidget {
   State<content> createState() => _contentState();
 }
 
+Widget displayContent(
+    {required icon, required String title, required Color? color}) {
+  return Container(
+    height: 20,
+    padding: EdgeInsets.all(8),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadiusDirectional.circular(20),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Icon(
+          icon,
+          color: color,
+        ),
+        Text(
+          title,
+          style: GoogleFonts.poppins(),
+        )
+      ],
+    ),
+  );
+}
+
 class _contentState extends State<content> {
   @override
   Widget build(BuildContext context) {
@@ -75,57 +100,43 @@ class _contentState extends State<content> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.6,
                         padding: EdgeInsets.only(left: 12),
-                       
                         child: Text(
                           "Ask me anything...",
                           style: GoogleFonts.poppins(
-                            fontWeight:FontWeight.w400,
-                            color:Colors.black54,
-                            fontSize:18),
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black54,
+                              fontSize: 18),
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(right: 10,left: 10),
+                        padding: EdgeInsets.only(right: 10, left: 10),
                         width: 80,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Icon(CupertinoIcons.photo_camera),
-                            Icon(Icons.mic,color: Colors.black54,)
-                          
+                            Icon(
+                              Icons.mic,
+                              color: Colors.black54,
+                            )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(5),
-                  width: MediaQuery.of(context).size.width * 1,
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.circular(10),
-                      color: Colors.grey.shade300),
-                  child: Column(
+                  margin: EdgeInsets.only(top: 20),
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            child: Text("History",
-                                style: GoogleFonts.abel(
-                                    fontSize: 22,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      ),
-                      firebaseHistory(),
-                      firebaseHistory(),
-                      firebaseHistory(),
-                      firebaseHistory(),
-                      firebaseHistory(),
+                      displayContent(
+                          icon: CupertinoIcons.pencil,
+                          title: "Gnnovation",
+                          color: Colors.blue)
                     ],
                   ),
                 )
@@ -134,24 +145,4 @@ class _contentState extends State<content> {
       ),
     );
   }
-}
-
-Widget firebaseHistory(
-
-    // {required context, required info}
-    ) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 5),
-    decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadiusDirectional.circular(10)),
-    child: ListTile(
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      leading: Icon(CupertinoIcons.news),
-      title: Text("We are testing this data",
-          style: GoogleFonts.abel(
-              color: Colors.black, fontWeight: FontWeight.bold)),
-      trailing: Icon(Icons.more_vert),
-    ),
-  );
 }
