@@ -8,6 +8,7 @@ import 'package:application/widgets/splash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -22,110 +23,159 @@ class login extends StatefulWidget {
 
 class _loginState extends State<login> {
   final TypeThisController _controller = TypeThisController();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadiusDirectional.circular(20)),
-          child: IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => OnBoardingPage()));
-            },
-            icon: Icon(CupertinoIcons.back),
-          ),
-        ),
-      ),
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.all(20),
-          child: Stack(children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    "assets/images/loginOne.jpg",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 20),
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(4),
-                  child: TypeThis(
-                    string: 'Click the button below to Login With Google',
-                    controller: _controller,
-                    speed: 100,
-                    style: GoogleFonts.vt323(fontSize: 18, color: Colors.black),
-                    richTextMatchers: const [
-                      TypeThisMatcher(
-                        'Google',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          // decoration: TextDecoration.underline,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Container(
-                //   height: MediaQuery.of(context).size.height*0.2,
-                //   width: MediaQuery.of(context).size.width,
-                //   child: Image.asset("assets/gif/google.gif"),),
-                GestureDetector(
-                  onTap: () {
-                    Authentication.signInWithGoogle(context: context);
-                  },
-                  child: Container(
-                      // margin: EdgeInsets.only(),
-                      alignment: Alignment.center,
-                      height: 40,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      decoration: BoxDecoration(
-                          // color: Colors.black54,
-                          borderRadius: BorderRadiusDirectional.circular(5)),
-                      child: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: "https://j.gifs.com/yoe67W.gif")
+  TextEditingController _userName = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  bool obsecure = true;
 
-                      //  Image.network(
-                      //     "https://miro.medium.com/freeze/fit/c/160/112/1*NyU8Hi9juxH7__nspK6erg.gif"),
-                      ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    {
-                      Authentication.signInWithGoogle(context: context);
-                    }
-                    ;
-                  },
-                  child: Container(
-                      margin: EdgeInsets.only(top: 20),
-                      alignment: Alignment.center,
-                      height: 40,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadiusDirectional.circular(10)),
-                      child: Text(
-                        "Login",
-                        style: GoogleFonts.vt323(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      )),
-                )
-              ],
-            ),
-          ]),
+  Widget userTextField(
+      {required icon,
+      required TextEditingController controller,
+      required String name}) {
+    return Container(
+      padding: EdgeInsets.only(left: 5),
+      margin: EdgeInsets.only(top: 3, bottom: 5),
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: 70,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadiusDirectional.circular(10)),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: name,
+          border: InputBorder.none,
+          hintStyle: GoogleFonts.poppins(fontWeight: FontWeight.w400),
+          icon: icon,
         ),
       ),
     );
+  }
+
+    Widget PasswordTextField(
+      {required icon,
+      required TextEditingController controller,
+      required String name}) {
+    return Container(
+      padding: EdgeInsets.only(left: 5),
+      margin: EdgeInsets.only(top: 3, bottom: 5),
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: 70,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadiusDirectional.circular(10)),
+      child: TextFormField(
+        obscureText: obsecure,
+        
+        controller: controller,
+        decoration: InputDecoration(
+          suffix: IconButton(onPressed: (){
+            setState(() {
+              obsecure=!obsecure;
+            });
+          }, icon:Icon(obsecure?Icons.visibility_off:Icons.visibility,color: Colors.black54,))
+          
+          ,
+        
+          hintText: name,
+          border: InputBorder.none,
+          hintStyle: GoogleFonts.poppins(fontWeight: FontWeight.w400),
+          icon: icon,
+        ),
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          leading: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadiusDirectional.circular(20)),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OnBoardingPage()));
+              },
+              icon: Icon(CupertinoIcons.back),
+            ),
+          ),
+        ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Colors.white, Colors.blue.shade100],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.2, 6.5]),
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Sign in",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500, fontSize: 38),
+                            ),
+                            Text(
+                              "To Access your account",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w300, fontSize: 16),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                          child: Image.network(
+                        "https://cdn3d.iconscout.com/3d/premium/thumb/chat-bot-5379962-4497578.png?f=webp",
+                        fit: BoxFit.contain,
+                        height: 300,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                      ))
+                    ],
+                  ),
+
+
+              userTextField(icon: Icon(CupertinoIcons.person,size: 22,), controller:_userName, name:"Username"),
+              PasswordTextField(icon:Icon(CupertinoIcons.padlock,size: 22,) , controller: _password, name: "Password"),
+              Container(
+                alignment: Alignment.center,
+                height: 65,
+               width: MediaQuery.of(context).size.width * 0.9,
+               decoration: BoxDecoration(color: Colors.blue,
+               borderRadius: BorderRadiusDirectional.circular(10)
+               ),
+   
+                margin: EdgeInsets.only(top: 10),
+                child: Text("Sign in",style: GoogleFonts.poppins(
+                  fontSize:20,
+                  fontWeight:FontWeight.bold,
+                  color:Colors.white),),)
+         
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }

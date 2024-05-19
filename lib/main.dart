@@ -1,4 +1,6 @@
 import 'package:application/firebase_options.dart';
+import 'package:application/widgets/AppBlocs.dart';
+import 'package:application/widgets/authentication/login.dart';
 import 'package:application/widgets/homepage.dart';
 import 'package:application/widgets/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,19 +25,23 @@ class MyApp extends StatelessWidget {
       SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent),
     );
 
-    return MaterialApp(
-      title: 'Kaps Ai',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return  const HomePage();
-          } else {
-            return const OnBoardingPage();
-          }
-        },
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => userProvider())],
+      child: MaterialApp(
+        title: 'Kaps Ai',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+        home: login()
+        // StreamBuilder<User?>(
+        //   stream: FirebaseAuth.instance.authStateChanges(),
+        //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+        //     if (snapshot.hasData) {
+        //       return const HomePage();
+        //     } else {
+        //       return const OnBoardingPage();
+        //     }
+        //   },
+        // ),
       ),
     );
   }
