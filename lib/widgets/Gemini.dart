@@ -1,25 +1,28 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:url_launcher/link.dart';
 
-class GenerativeAISample extends StatelessWidget {
-  const GenerativeAISample({super.key});
+class Display_Gemini extends StatelessWidget {
+  const Display_Gemini({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter + Generative AI',
+      title: 'Generative AI',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          brightness: Brightness.dark,
           seedColor: const Color.fromARGB(255, 171, 222, 244),
         ),
         useMaterial3: true,
       ),
-      home: const ChatScreen(title: 'Flutter + Generative AI'),
+      home: const ChatScreen(title: 'Generative  Ai'),
     );
   }
 }
@@ -34,78 +37,13 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  String? apiKey;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: switch (apiKey) {
-        final providedKey? => ChatWidget(apiKey: "AIzaSyAWqsNi7g2ed05UKvVGzkx95mrNv9imA4A"),
-        _ => ApiKeyWidget(onSubmitted: (key) {
-            setState(() => apiKey = key);
-          }),
-      },
-    );
-  }
-}
-
-class ApiKeyWidget extends StatelessWidget {
-  ApiKeyWidget({required this.onSubmitted, super.key});
-
-  final ValueChanged onSubmitted;
-  final TextEditingController _textController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'To use the Gemini API, you\'ll need an API key. '
-              'If you don\'t already have one, '
-              'create a key in Google AI Studio.',
-            ),
-            const SizedBox(height: 8),
-            Link(
-              uri: Uri.https('makersuite.google.com', '/app/apikey'),
-              target: LinkTarget.blank,
-              builder: (context, followLink) => TextButton(
-                onPressed: followLink,
-                child: const Text('Get an API Key'),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration:
-                        textFieldDecoration(context, 'Enter your API key'),
-                    controller: _textController,
-                    onSubmitted: (value) {
-                      onSubmitted(value);
-                    },
-                  ),
-                ),
-                const SizedBox(height: 8),
-                TextButton(
-                  onPressed: () {
-                    onSubmitted(_textController.value.text);
-                  },
-                  child: const Text('Submit'),
-                ),
-              ],
-            ),
-          ],
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-      ),
-    );
+        body: ChatWidget(apiKey: "AIzaSyAWqsNi7g2ed05UKvVGzkx95mrNv9imA4A"));
   }
 }
 
@@ -125,6 +63,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   final TextEditingController _textController = TextEditingController();
   final FocusNode _textFieldFocus = FocusNode(debugLabel: 'TextField');
   bool _loading = false;
+  bool _chatStared = false;
 
   @override
   void initState() {
@@ -151,67 +90,139 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     final history = _chat.history.toList();
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemBuilder: (context, idx) {
-                final content = history[idx];
-                final text = content.parts
-                    .whereType<TextPart>()
-                    .map<String>((e) => e.text)
-                    .join('');
-                return MessageWidget(
-                  text: text,
-                  isFromUser: content.role == 'user',
-                );
-              },
-              itemCount: history.length,
-            ),
+
+    Widget WelcomeScreen() {
+      return Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Colors.white, Colors.blue.shade100],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.2, 6.5]),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 25,
-              horizontal: 15,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    autofocus: true,
-                    focusNode: _textFieldFocus,
-                    decoration:
-                        textFieldDecoration(context, 'Enter a prompt...'),
-                    controller: _textController,
-                    onSubmitted: (String value) {
-                      _sendChatMessage(value);
-                    },
-                  ),
-                ),
-                const SizedBox.square(dimension: 15),
-                if (!_loading)
-                  IconButton(
-                    onPressed: () async {
-                      _sendChatMessage(_textController.text);
-                    },
-                    icon: Icon(
-                      Icons.send,
-                      color: Theme.of(context).colorScheme.primary,
+          padding: EdgeInsets.all(8.0),
+          child: Expanded(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.topRight,
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/gif/bot.gif"),
+                            fit: BoxFit.contain)),
+                    child: Container(
+                      margin: EdgeInsets.only(right:10),
+                      padding: EdgeInsets.all(10),
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.blueAccent),
+                        child: Text(
+                            "Hey,${FirebaseAuth.instance.currentUser?.displayName}"),
+                      ),
                     ),
-                  )
-                else
-                  const CircularProgressIndicator(),
-              ],
+                  ),
+                  Container(
+                    child: Text(
+                      "Welcome Back",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600, color: Colors.black54,fontSize:18),
+                    ),
+                  ),
+                  Container(
+                    child: Text("How Can i Help You Today?",style:  GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600, color: Colors.black54,fontSize:20),),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10,bottom: 10),
+                    padding: EdgeInsets.only(top: 1,right: 20,left: 20,bottom: 1),
+                    decoration: BoxDecoration(color: Colors.white,
+                    borderRadius:BorderRadiusDirectional.circular(20)
+                    ),
+                    child: Icon(CupertinoIcons.keyboard_chevron_compact_down,color: Colors.blue,size: 50,),)
+              
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ));
+    }
+
+    return WelcomeScreen();
+    // Container(
+    //   decoration: BoxDecoration(
+    //     gradient: LinearGradient(
+    //         colors: [Colors.white, Colors.blue.shade100],
+    //         begin: Alignment.topLeft,
+    //         end: Alignment.bottomRight,
+    //         stops: [0.2, 6.5]),
+    //   ),
+    //   padding: const EdgeInsets.all(8.0),
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: [
+    //       Expanded(
+    //         child: ListView.builder(
+    //           physics: BouncingScrollPhysics(),
+    //           controller: _scrollController,
+    //           itemBuilder: (context, idx) {
+    //             final content = history[idx];
+    //             final text = content.parts
+    //                 .whereType<TextPart>()
+    //                 .map<String>((e) => e.text)
+    //                 .join('');
+    //             return MessageWidget(
+    //               text: text,
+    //               isFromUser: content.role == 'user',
+    //             );
+    //           },
+    //           itemCount: history.length,
+    //         ),
+    //       ),
+    //       Padding(
+    //         padding: const EdgeInsets.symmetric(
+    //           vertical: 25,
+    //           horizontal: 15,
+    //         ),
+    //         child: Row(
+    //           children: [
+    //             Expanded(
+    //               child: TextField(
+    //                 autofocus: true,
+    //                 focusNode: _textFieldFocus,
+    //                 decoration:
+    //                     textFieldDecoration(context, 'Enter a prompt...'),
+    //                 controller: _textController,
+    //                 onSubmitted: (String value) {
+    //                   _sendChatMessage(value);
+    //                 },
+    //               ),
+    //             ),
+    //             const SizedBox.square(dimension: 15),
+    //             if (!_loading)
+    //               IconButton(
+    //                 onPressed: () async {
+    //                   _sendChatMessage(_textController.text);
+    //                 },
+    //                 icon: Icon(
+    //                   Icons.send,
+    //                   color: Theme.of(context).colorScheme.primary,
+    //                 ),
+    //               )
+    //             else
+    //               const CircularProgressIndicator(),
+    //           ],
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 
   Future<void> _sendChatMessage(String message) async {
@@ -292,7 +303,7 @@ class MessageWidget extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 480),
             decoration: BoxDecoration(
               color: isFromUser
-                  ? Theme.of(context).colorScheme.primaryContainer
+                  ? Theme.of(context).colorScheme.onError
                   : Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(18),
             ),

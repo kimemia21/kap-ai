@@ -13,11 +13,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class content extends StatefulWidget {
-  const content({super.key});
+class Display_Content extends StatefulWidget {
+  const Display_Content({super.key});
 
   @override
-  State<content> createState() => _contentState();
+  State<Display_Content> createState() => _Display_ContentState();
 }
 
 Widget displayContent(
@@ -49,7 +49,7 @@ Widget displayContent(
   );
 }
 
-class _contentState extends State<content> {
+class _Display_ContentState extends State<Display_Content> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -104,15 +104,18 @@ class _contentState extends State<content> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        padding: EdgeInsets.only(left: 12),
-                        child: Text(
-                          "Ask me anything...",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54,
-                              fontSize: 18),
+                      GestureDetector(
+                        onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>Display_Gemini())),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          padding: EdgeInsets.only(left: 12),
+                          child: Text(
+                            "Ask me anything...",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black54,
+                                fontSize: 18),
+                          ),
                         ),
                       ),
                       Container(
@@ -153,7 +156,7 @@ class _contentState extends State<content> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => GenerativeAISample()));
+                                    builder: (context) => Display_Gemini()));
                           },
                           child: displayContent(
                               icon: CupertinoIcons.rocket,

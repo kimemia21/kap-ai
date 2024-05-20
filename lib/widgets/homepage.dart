@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             title: Text(widget.title,style: GoogleFonts.roboto(fontWeight:FontWeight.bold),),
           ),
-          body: content()
+          body: Display_Content()
         ),
       ),
     );

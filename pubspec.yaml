@@ -130,6 +130,12 @@ flutter:
     - assets/images/UserHolder.png
     - assets/images/google.png
     - assets/images/login.webp
+    - assets/gif/gemini.gif
+    - assets/gif/generative.gif
+    - assets/gif/final.gif
+    - assets/gif/bot.gif
+    
+    
 
 
 
