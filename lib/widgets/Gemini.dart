@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:typethis/typethis.dart';
 import 'package:url_launcher/link.dart';
 
 class Display_Gemini extends StatelessWidget {
@@ -22,7 +23,7 @@ class Display_Gemini extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const ChatScreen(title: 'Generative  Ai'),
+      home: const ChatScreen(title: 'Generative Ai'),
     );
   }
 }
@@ -41,8 +42,11 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
-        ),
+            centerTitle: true,
+            title: TypeThis(
+                speed: 100,
+                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                string: widget.title)),
         body: ChatWidget(apiKey: "AIzaSyAWqsNi7g2ed05UKvVGzkx95mrNv9imA4A"));
   }
 }
@@ -106,7 +110,6 @@ class _ChatWidgetState extends State<ChatWidget> {
           child: Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
-              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -119,12 +122,21 @@ class _ChatWidgetState extends State<ChatWidget> {
                             image: AssetImage("assets/gif/bot.gif"),
                             fit: BoxFit.contain)),
                     child: Container(
-                      margin: EdgeInsets.only(right:10),
+                      margin: EdgeInsets.only(right: 10),
                       padding: EdgeInsets.all(10),
                       child: Container(
-                        decoration: BoxDecoration(color: Colors.blueAccent),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20)),
+                            color: Colors.blueAccent),
                         child: Text(
-                            "Hey,${FirebaseAuth.instance.currentUser?.displayName}"),
+                          "Hey, ${FirebaseAuth.instance.currentUser?.displayName}",
+                          style:
+                              GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ),
                   ),
@@ -132,25 +144,111 @@ class _ChatWidgetState extends State<ChatWidget> {
                     child: Text(
                       "Welcome Back",
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, color: Colors.black54,fontSize:18),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black54,
+                          fontSize: 18),
                     ),
                   ),
                   Container(
-                    child: Text("How Can i Help You Today?",style:  GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, color: Colors.black54,fontSize:20),),
+                    child: Text(
+                      "How Can i Help You Today?",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black54,
+                          fontSize: 20),
+                    ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10,bottom: 10),
-                    padding: EdgeInsets.only(top: 1,right: 20,left: 20,bottom: 1),
-                    decoration: BoxDecoration(color: Colors.white,
-                    borderRadius:BorderRadiusDirectional.circular(20)
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    padding:
+                        EdgeInsets.only(top: 1, right: 20, left: 20, bottom: 1),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadiusDirectional.circular(20)),
+                    child: Icon(
+                      CupertinoIcons.keyboard_chevron_compact_down,
+                      color: Colors.blue,
+                      size: 50,
                     ),
-                    child: Icon(CupertinoIcons.keyboard_chevron_compact_down,color: Colors.blue,size: 50,),)
-              
+                  )
                 ],
               ),
             ),
           ));
+    }
+
+    ;
+    Widget ChatPage(){
+      return 
+       Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            colors: [Colors.white, Colors.blue.shade100],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.2, 6.5]),
+      ),
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              controller: _scrollController,
+              itemBuilder: (context, idx) {
+                final content = history[idx];
+                final text = content.parts
+                    .whereType<TextPart>()
+                    .map<String>((e) => e.text)
+                    .join('');
+                return MessageWidget(
+                  text: text,
+                  isFromUser: content.role == 'user',
+                );
+              },
+              itemCount: history.length,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 25,
+              horizontal: 15,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    autofocus: true,
+                    focusNode: _textFieldFocus,
+                    decoration:
+                        textFieldDecoration(context, 'Enter a prompt...'),
+                    controller: _textController,
+                    onSubmitted: (String value) {
+                      _sendChatMessage(value);
+                    },
+                  ),
+                ),
+                const SizedBox.square(dimension: 15),
+                if (!_loading)
+                  IconButton(
+                    onPressed: () async {
+                      _sendChatMessage(_textController.text);
+                    },
+                    icon: Icon(
+                      Icons.send,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  )
+                else
+                  const CircularProgressIndicator(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
     }
 
     return WelcomeScreen();
