@@ -153,7 +153,7 @@ class _contentState extends State<content> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => GeminiAi()));
+                                    builder: (context) => GenerativeAISample()));
                           },
                           child: displayContent(
                               icon: CupertinoIcons.rocket,
