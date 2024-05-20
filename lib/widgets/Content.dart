@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:application/widgets/ChatBot.dart';
+import 'package:application/widgets/Gemini.dart';
 import 'package:application/widgets/comingSoon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ Widget displayContent(
           color: color,
         ),
         Container(
-          margin: EdgeInsets.only(right: 5,left: 5),
+          margin: EdgeInsets.only(right: 5, left: 5),
           child: Text(
             title,
             style: GoogleFonts.poppins(),
@@ -63,8 +64,7 @@ class _contentState extends State<content> {
               colors: [Colors.grey.shade200, Colors.blue.shade300],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              stops:  [0.5, 2.5]
-              ),
+              stops: [0.5, 2.5]),
         ),
         child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
@@ -148,47 +148,62 @@ class _contentState extends State<content> {
                           icon: CupertinoIcons.text_bubble_fill,
                           title: "ChatBot",
                           color: Colors.green.shade300),
-                      displayContent(icon: CupertinoIcons.rocket, title: "Gemini Ai", color: Colors.black54) ,
-                      displayContent(icon: CupertinoIcons.moon_circle_fill, title: "About Us", color: Colors.yellow.shade600),
-                       
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => GeminiAi()));
+                          },
+                          child: displayContent(
+                              icon: CupertinoIcons.rocket,
+                              title: "Gemini Ai",
+                              color: Colors.black54)),
+                      displayContent(
+                          icon: CupertinoIcons.moon_circle_fill,
+                          title: "About Us",
+                          color: Colors.yellow.shade600),
                     ],
                   ),
                 ),
-                 Container(
-                        margin: EdgeInsets.only(top: 20,right: 5,left: 5),
-                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          
-                          Text("Recent",style: GoogleFonts.poppins(fontWeight:FontWeight.w600,fontSize:20),),
-                          Text("See All",style: GoogleFonts.poppins(color:Colors.blue, fontWeight:FontWeight.w400),),
-
-                          ],),
-                      ) ,
-
-
-                   
-
+                Container(
+                  margin: EdgeInsets.only(top: 20, right: 5, left: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Recent",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600, fontSize: 20),
+                      ),
+                      Text(
+                        "See All",
+                        style: GoogleFonts.poppins(
+                            color: Colors.blue, fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 100),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("No Data Available"),
                       Container(
-                        margin: EdgeInsets.only(top: 100),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                                 Text("No Data Available"),
-                            Container(
-                              margin: EdgeInsets.only(),
-                              child:AnimatedEmoji(
-                                          AnimatedEmojis.sad,
-                                          size: 50,
-                                          repeat: true,
-                                          // Force the emoji to be loaded from assets.
-                                          source: AnimatedEmojiSource.network,
-                                        ), ),
-                          ],
+                        margin: EdgeInsets.only(),
+                        child: AnimatedEmoji(
+                          AnimatedEmojis.sad,
+                          size: 50,
+                          repeat: true,
+                          // Force the emoji to be loaded from assets.
+                          source: AnimatedEmojiSource.network,
                         ),
-                      )
-
-
+                      ),
+                    ],
+                  ),
+                )
               ],
             )),
       ),
