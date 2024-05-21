@@ -74,7 +74,16 @@ class _MyHomePageState extends State<MyHomePage> {
       child: IgnorePointer(
         ignoring: isOpened,
         child: Scaffold(
+          
+          backgroundColor: Colors.grey.shade200,
           appBar: AppBar(
+            
+            shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          ),
+        ),
+          
             centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.menu_outlined),
@@ -97,7 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             title: Text(widget.title,style: GoogleFonts.roboto(fontWeight:FontWeight.bold),),
           ),
-          body: Display_Content()
+          body:
+           Container(child: Display_Content())
         ),
       ),
     );

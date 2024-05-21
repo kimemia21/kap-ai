@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:application/main.dart';
 import 'package:application/widgets/AppBlocs.dart';
 import 'package:application/widgets/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:provider/provider.dart';
 import 'package:typethis/typethis.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Display_Gemini extends StatefulWidget {
   const Display_Gemini({super.key});
@@ -245,6 +247,13 @@ class _ChatWidgetState extends State<ChatWidget> {
                         textFieldDecoration(context, 'Enter a prompt...'),
                     controller: _textController,
                     onSubmitted: (String value) {
+                      final id =
+                          DateTime.now().microsecondsSinceEpoch.toString();
+
+                      collection
+                          .doc(id)
+                          .set({"query": _textController.text.trim()});
+
                       _sendChatMessage(value);
                     },
                   ),

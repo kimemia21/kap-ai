@@ -16,9 +16,13 @@ import 'package:google_fonts/google_fonts.dart';
 class Display_Content extends StatefulWidget {
   const Display_Content({super.key});
 
+
   @override
   State<Display_Content> createState() => _Display_ContentState();
 }
+
+
+
 
 Widget displayContent(
     {required icon, required String title, required Color? color}) {
