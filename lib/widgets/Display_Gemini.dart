@@ -247,15 +247,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                         textFieldDecoration(context, 'Enter a prompt...'),
                     controller: _textController,
                     onSubmitted: (String value) {
-                      final id =
-                          DateTime.now().microsecondsSinceEpoch.toString();
-
-                      collection
-                          .doc(id)
-                          .set({"query": _textController.text.trim()});
-
-                      _sendChatMessage(value);
-                      
+                      if (_textController.text.isNotEmpty) {
+                        _sendChatMessage(value);
+                      }
                     },
                   ),
                 ),
@@ -358,7 +352,21 @@ class _ChatWidgetState extends State<ChatWidget> {
       final response = await _chat.sendMessage(
         Content.text(message),
       );
+
       final text = response.text;
+
+       // Use context.read to update the provider without listening
+    context.read<userProvider>().changeResponse(response: text);
+
+    final id = DateTime.now().microsecondsSinceEpoch.toString();
+    
+    // Use context.read to access the provider's value without listening
+    final aiResponse = context.read<userProvider>().ai_response;
+
+    collection.doc(id).set({
+      message: aiResponse, // Fix key-value assignment
+    });
+    print(aiResponse);
 
       if (text == null) {
         _showError('Empty response.');
@@ -371,11 +379,13 @@ class _ChatWidgetState extends State<ChatWidget> {
       }
     } catch (e) {
       _showError(e.toString());
+      print(e);
       setState(() {
         _loading = false;
       });
     } finally {
       _textController.clear();
+
       setState(() {
         _loading = false;
       });
