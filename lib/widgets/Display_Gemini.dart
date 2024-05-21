@@ -255,6 +255,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                           .set({"query": _textController.text.trim()});
 
                       _sendChatMessage(value);
+                      
                     },
                   ),
                 ),

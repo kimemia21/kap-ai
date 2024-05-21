@@ -6,6 +6,7 @@ import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:application/widgets/ChatBot.dart';
 import 'package:application/widgets/Display_Gemini.dart';
+import 'package:application/widgets/UserSearches.dart';
 import 'package:application/widgets/comingSoon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -214,44 +215,8 @@ class _Display_ContentState extends State<Display_Content> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 20, right: 5, left: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Recent",
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600, fontSize: 20),
-                      ),
-                      Text(
-                        "See All",
-                        style: GoogleFonts.poppins(
-                            color: Colors.blue, fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 100),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("No Data Available"),
-                      Container(
-                        margin: EdgeInsets.only(),
-                        child: AnimatedEmoji(
-                          AnimatedEmojis.sad,
-                          size: 50,
-                          repeat: true,
-                          // Force the emoji to be loaded from assets.
-                          source: AnimatedEmojiSource.network,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                UserSearches()
+               
               ],
             )),
       ),
