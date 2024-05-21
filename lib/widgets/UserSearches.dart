@@ -54,31 +54,44 @@ class _UserSearchesState extends State<UserSearches> {
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return Center(child: Text('No data found.'));
-        }
-         else {
-          List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = snapshot.data!.docs;
+        } else {
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
+              snapshot.data!.docs;
 
-      
           // List<String> keys = data.keys.toList();
           // List<dynamic> values = data.values.toList();
 
           return Container(
-            height: MediaQuery.of(context).size.height*0.3,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-              itemCount:documents.length,
-              itemBuilder: (BuildContext context, int index) {
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.width,
+              child: GridView.builder(
+                itemCount: documents.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) {
+                  Map<String, dynamic> data = documents[index].data();
+                  String keys = data.keys.toList()[0];
+                  String values= data.values.toList()[0];
 
-            Map<String, dynamic> data = documents[index].data();
-            String key = data.keys.toList()[0]; // assuming there is at least one key-value pair
-            dynamic value = data.values.toList()[0];
-                return ListTile(
-              title: Text(key),
-              subtitle: Text(value.toString()),
-            );
-              },
-            ),
-          );
+                  return ListTile(title: Text(keys),
+                  subtitle: Text(values),
+                  );
+                },
+              )
+              // ListView.builder(
+              //   itemCount:documents.length,
+              //   itemBuilder: (BuildContext context, int index) {
+
+              // Map<String, dynamic> data = documents[index].data();
+              // String key = data.keys.toList()[0]; // assuming there is at least one key-value pair
+              // dynamic value = data.values.toList()[0];
+              //     return ListTile(
+              //   title: Text(key),
+              //   subtitle: Text(value.toString()),
+              // );
+              //   },
+              // ),
+              );
         }
       },
     );
