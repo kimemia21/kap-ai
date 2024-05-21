@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:application/widgets/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -42,6 +44,10 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            leading: IconButton(
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePage())),
+                icon: Icon(Icons.arrow_back)),
             centerTitle: true,
             title: TypeThis(
                 speed: 100,
@@ -158,17 +164,24 @@ class _ChatWidgetState extends State<ChatWidget> {
                           fontSize: 20),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    padding:
-                        EdgeInsets.only(top: 1, right: 20, left: 20, bottom: 1),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadiusDirectional.circular(20)),
-                    child: Icon(
-                      CupertinoIcons.keyboard_chevron_compact_down,
-                      color: Colors.blue,
-                      size: 50,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _chatStared = true;
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      padding: EdgeInsets.only(
+                          top: 1, right: 20, left: 20, bottom: 1),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadiusDirectional.circular(20)),
+                      child: Icon(
+                        CupertinoIcons.keyboard_chevron_compact_down,
+                        color: Colors.blue,
+                        size: 50,
+                      ),
                     ),
                   )
                 ],
@@ -177,81 +190,79 @@ class _ChatWidgetState extends State<ChatWidget> {
           ));
     }
 
-    ;
-    Widget ChatPage(){
-      return 
-       Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            colors: [Colors.white, Colors.blue.shade100],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.2, 6.5]),
-      ),
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              controller: _scrollController,
-              itemBuilder: (context, idx) {
-                final content = history[idx];
-                final text = content.parts
-                    .whereType<TextPart>()
-                    .map<String>((e) => e.text)
-                    .join('');
-                return MessageWidget(
-                  text: text,
-                  isFromUser: content.role == 'user',
-                );
-              },
-              itemCount: history.length,
+    Widget ChatPage() {
+      return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.white, Colors.blue.shade100],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.2, 6.5]),
+        ),
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                controller: _scrollController,
+                itemBuilder: (context, idx) {
+                  final content = history[idx];
+                  final text = content.parts
+                      .whereType<TextPart>()
+                      .map<String>((e) => e.text)
+                      .join('');
+                  return MessageWidget(
+                    text: text,
+                    isFromUser: content.role == 'user',
+                  );
+                },
+                itemCount: history.length,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 25,
-              horizontal: 15,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    autofocus: true,
-                    focusNode: _textFieldFocus,
-                    decoration:
-                        textFieldDecoration(context, 'Enter a prompt...'),
-                    controller: _textController,
-                    onSubmitted: (String value) {
-                      _sendChatMessage(value);
-                    },
-                  ),
-                ),
-                const SizedBox.square(dimension: 15),
-                if (!_loading)
-                  IconButton(
-                    onPressed: () async {
-                      _sendChatMessage(_textController.text);
-                    },
-                    icon: Icon(
-                      Icons.send,
-                      color: Theme.of(context).colorScheme.primary,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 25,
+                horizontal: 15,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      focusNode: _textFieldFocus,
+                      decoration:
+                          textFieldDecoration(context, 'Enter a prompt...'),
+                      controller: _textController,
+                      onSubmitted: (String value) {
+                        _sendChatMessage(value);
+                      },
                     ),
-                  )
-                else
-                  const CircularProgressIndicator(),
-              ],
+                  ),
+                  const SizedBox.square(dimension: 15),
+                  if (!_loading)
+                    IconButton(
+                      onPressed: () async {
+                        _sendChatMessage(_textController.text);
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    )
+                  else
+                    const CircularProgressIndicator(),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
     }
 
-    return WelcomeScreen();
+    return _chatStared ? ChatPage() : WelcomeScreen();
     // Container(
     //   decoration: BoxDecoration(
     //     gradient: LinearGradient(
