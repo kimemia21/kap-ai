@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:application/widgets/ChatBot.dart';
-import 'package:application/widgets/Gemini.dart';
+import 'package:application/widgets/Display_Gemini.dart';
 import 'package:application/widgets/comingSoon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -105,7 +105,10 @@ class _Display_ContentState extends State<Display_Content> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>Display_Gemini())),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Display_Gemini())),
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.6,
                           padding: EdgeInsets.only(left: 12),
@@ -147,16 +150,54 @@ class _Display_ContentState extends State<Display_Content> {
                           icon: CupertinoIcons.pencil_ellipsis_rectangle,
                           title: "Gnnovation Ai ",
                           color: Colors.blue),
-                      displayContent(
-                          icon: CupertinoIcons.text_bubble_fill,
-                          title: "ChatBot",
-                          color: Colors.green.shade300),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(pageBuilder:
+                                  (context, animation, secondaryAnimation) {
+                                return ChatBotScreen();
+                              }, transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0);
+                                const end = Offset.zero;
+                                const curve = Curves.easeInOut;
+
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+
+                                return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child,
+                                );
+                              }));
+                        },
+                        child: displayContent(
+                            icon: CupertinoIcons.text_bubble_fill,
+                            title: "ChatBot",
+                            color: Colors.green.shade300),
+                      ),
                       GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Display_Gemini()));
+                              context,
+                              PageRouteBuilder(pageBuilder:
+                                  (context, animation, secondaryAnimation) {
+                                return Display_Gemini();
+                              }, transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0);
+                                const end = Offset.zero;
+                                const curve = Curves.easeInOut;
+
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+
+                                return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child,
+                                );
+                              }));
                           },
                           child: displayContent(
                               icon: CupertinoIcons.rocket,
