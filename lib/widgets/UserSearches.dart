@@ -14,6 +14,8 @@ class UserSearches extends StatefulWidget {
 }
 
 class _UserSearchesState extends State<UserSearches> {
+  Query<Map<String, dynamic>> searchQueries = collection;
+
   @override
   Widget build(BuildContext context) {
     void _showError(String message) {
@@ -39,8 +41,9 @@ class _UserSearchesState extends State<UserSearches> {
     }
 
     return StreamBuilder(
-      stream: collection.snapshots(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      stream: searchQueries.snapshots(),
+      builder: (BuildContext context,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasError) {
           _showError("${snapshot.error}");
         }
@@ -48,20 +51,31 @@ class _UserSearchesState extends State<UserSearches> {
           return Center(
             child: CircularProgressIndicator(),
           );
-        } else {
-          DocumentSnapshot document = snapshot.data!.docs;
-          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-          List<String> keys = data.keys.toList();
-          List<dynamic> values = data.values.toList();
+        }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Center(child: Text('No data found.'));
+        }
+         else {
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = snapshot.data!.docs;
 
-          return Expanded(
+      
+          // List<String> keys = data.keys.toList();
+          // List<dynamic> values = data.values.toList();
+
+          return Container(
+            height: MediaQuery.of(context).size.height*0.3,
+            width: MediaQuery.of(context).size.width,
             child: ListView.builder(
-              itemCount: keys.length,
+              itemCount:documents.length,
               itemBuilder: (BuildContext context, int index) {
+
+            Map<String, dynamic> data = documents[index].data();
+            String key = data.keys.toList()[0]; // assuming there is at least one key-value pair
+            dynamic value = data.values.toList()[0];
                 return ListTile(
-                  title: Text(keys[index].toString()),
-                  subtitle: Text(values[index].toString()),
-                );
+              title: Text(key),
+              subtitle: Text(value.toString()),
+            );
               },
             ),
           );

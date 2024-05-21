@@ -364,7 +364,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     final aiResponse = context.read<userProvider>().ai_response;
 
     collection.doc(id).set({
-      message: aiResponse, // Fix key-value assignment
+      message.toString(): aiResponse.toString(), // Fix key-value assignment
     });
     print(aiResponse);
 
