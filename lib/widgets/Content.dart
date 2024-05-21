@@ -96,7 +96,7 @@ class _Display_ContentState extends State<Display_Content> {
                     alignment: Alignment.center,
                     margin: EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Gnnovation Ai",
+                      "Gnovation Ai",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600, fontSize: 24),
                     )),
