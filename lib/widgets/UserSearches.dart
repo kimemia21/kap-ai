@@ -4,6 +4,7 @@ import 'package:application/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserSearches extends StatefulWidget {
@@ -14,7 +15,7 @@ class UserSearches extends StatefulWidget {
 }
 
 class _UserSearchesState extends State<UserSearches> {
-  Query<Map<String, dynamic>> searchQueries = collection;
+  Query<Map<String, dynamic>> searchQueries = collection.limit(4);
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +46,55 @@ class _UserSearchesState extends State<UserSearches> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title:  Text(title),
+            title: Text(
+              title,
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+            ),
             content: SingleChildScrollView(
-              child: Text(subtitle),
+              physics: BouncingScrollPhysics(),
+              child: Text(
+                subtitle.toString().replaceAll("**", ""),
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+              ),
             ),
             actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   TextButton(
+                  onPressed: () {},
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: Colors.red.shade400,
+                        borderRadius: BorderRadiusDirectional.circular(10)),
+                    child: Text(
+                      "Delete",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  )),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('OK'),
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.blue.shade400,
+                      borderRadius: BorderRadiusDirectional.circular(10)),
+                  child: Text(
+                    'close',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ),
               )
-            ],
+
+
+                ],),
+
+                         ],
           );
         },
       );
@@ -83,63 +121,75 @@ class _UserSearchesState extends State<UserSearches> {
           // List<String> keys = data.keys.toList();
           // List<dynamic> values = data.values.toList();
 
-          return Container(
-              margin: EdgeInsets.only(top: 10),
-              height: MediaQuery.of(context).size.height * 0.4,
-              width: MediaQuery.of(context).size.width,
-              child: GridView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: documents.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemBuilder: (context, index) {
-                  Map<String, dynamic> data = documents[index].data();
-                  String keys = data.keys.toList()[0];
-                  String values = data.values.toList()[0];
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  margin: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text("Recent Searches"), Text("See all")],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(top: 10),
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: MediaQuery.of(context).size.width,
+                  child: GridView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: documents.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2),
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> data = documents[index].data();
+                      String keys = data.keys.toList()[0];
+                      String values = data.values.toList()[0];
 
-                  return Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: 200,
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadiusDirectional.circular(10)),
-                    child: ListTile(
-                      onLongPress: () => _showDetails(title: keys.toString(), subtitle: values.toString()),
-                      // leading: I
-                      //con(Icons.search,color: Colors.blue.shade300,),
-                      title: Container(
-                        margin: EdgeInsets.only(bottom: 2),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.search,
-                              color: Colors.blue.shade300,
+                      return Container(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: 150,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadiusDirectional.circular(10)),
+                        child: ListTile(
+                          onLongPress: () => _showDetails(
+                              title: keys.toString(),
+                              subtitle: values.toString()),
+                          // leading: I
+                          //con(Icons.search,color: Colors.blue.shade300,),
+                          title: Container(
+                            margin: EdgeInsets.only(bottom: 2),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  child: Text(
+                                    keys,
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                ),
+                                // IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
+                              ],
                             ),
-
-                            Text(
-                              keys,
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            // IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
-                          ],
+                          ),
+                          subtitle: Text(
+                            values.toString().replaceAll("**", ""),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w300),
+                            maxLines: 6,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          // trailing: IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
                         ),
-                      ),
-                      subtitle: Text(
-                        values.toString().replaceAll("**", ""),
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.w300),
-                        maxLines: 6,
-                        overflow: TextOverflow.fade,
-                      ),
-                      // trailing: IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
-                    ),
-                  );
-                },
-              ));
+                      );
+                    },
+                  )),
+            ],
+          );
         }
       },
     );
