@@ -364,6 +364,8 @@ class _ChatWidgetState extends State<ChatWidget> {
     final aiResponse = context.read<userProvider>().ai_response;
 
     collection.doc(id).set({
+      "createdOn":FieldValue.serverTimestamp(),
+
       message.toString(): aiResponse.toString(), // Fix key-value assignment
     });
     print(aiResponse);

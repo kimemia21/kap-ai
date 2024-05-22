@@ -61,10 +61,13 @@ class _UserSearchesState extends State<UserSearches> {
           // List<String> keys = data.keys.toList();
           // List<dynamic> values = data.values.toList();
 
-          return Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+          return 
+          Container(
+            margin: EdgeInsets.only(top:10),
+              height: MediaQuery.of(context).size.height * 0.4,
               width: MediaQuery.of(context).size.width,
               child: GridView.builder(
+                physics: BouncingScrollPhysics(),
                 itemCount: documents.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
@@ -72,71 +75,47 @@ class _UserSearchesState extends State<UserSearches> {
                   Map<String, dynamic> data = documents[index].data();
                   String keys = data.keys.toList()[0];
                   String values= data.values.toList()[0];
-
-                  return ListTile(title: Text(keys),
-                  subtitle: Text(values),
+                  
+          
+                  return 
+                  
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.3,
+                    height: 200,
+                    margin: EdgeInsets.all(5),
+                    decoration: BoxDecoration(color:Colors.white,
+                    borderRadius: BorderRadiusDirectional.circular(10)),
+                    child: ListTile(
+                 
+                      
+                      // leading: I
+                      //con(Icons.search,color: Colors.blue.shade300,),
+                      title: Container(
+                        margin: EdgeInsets.only(bottom:2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                              Icon(Icons.search,color: Colors.blue.shade300,),
+                            
+                            Text(keys,style: GoogleFonts.poppins(fontWeight:FontWeight.w500),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                            // IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
+                          ],
+                        ),
+                      ),
+                    subtitle: Text(values.toString().replaceAll("**",""),style: GoogleFonts.poppins(fontWeight:FontWeight.w300),
+                    maxLines:6 ,
+                     overflow: TextOverflow.fade,),
+                    // trailing: IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
+                    ),
                   );
                 },
               )
-              // ListView.builder(
-              //   itemCount:documents.length,
-              //   itemBuilder: (BuildContext context, int index) {
-
-              // Map<String, dynamic> data = documents[index].data();
-              // String key = data.keys.toList()[0]; // assuming there is at least one key-value pair
-              // dynamic value = data.values.toList()[0];
-              //     return ListTile(
-              //   title: Text(key),
-              //   subtitle: Text(value.toString()),
-              // );
-              //   },
-              // ),
+             
               );
         }
       },
     );
 
-    // Column(
-    //   children: [
-    //     Container(
-    //       margin: EdgeInsets.only(top: 20, right: 5, left: 5),
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: [
-    //           Text(
-    //             "Recent",
-    //             style: GoogleFonts.poppins(
-    //                 fontWeight: FontWeight.w600, fontSize: 20),
-    //           ),
-    //           Text(
-    //             "See All",
-    //             style: GoogleFonts.poppins(
-    //                 color: Colors.blue, fontWeight: FontWeight.w400),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //     Container(
-    //       margin: EdgeInsets.only(top: 100),
-    //       child: Column(
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           Text("No Data Available"),
-    //           Container(
-    //             margin: EdgeInsets.only(),
-    //             child: AnimatedEmoji(
-    //               AnimatedEmojis.sad,
-    //               size: 50,
-    //               repeat: true,
-    //               // Force the emoji to be loaded from assets.
-    //               source: AnimatedEmojiSource.network,
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     )
-    //   ],
-    // );
+
   }
 }
