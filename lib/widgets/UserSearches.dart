@@ -40,6 +40,28 @@ class _UserSearchesState extends State<UserSearches> {
       );
     }
 
+    void _showDetails({required String title, required String subtitle}) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title:  Text(title),
+            content: SingleChildScrollView(
+              child: Text(subtitle),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              )
+            ],
+          );
+        },
+      );
+    }
+
     return StreamBuilder(
       stream: searchQueries.snapshots(),
       builder: (BuildContext context,
@@ -61,9 +83,8 @@ class _UserSearchesState extends State<UserSearches> {
           // List<String> keys = data.keys.toList();
           // List<dynamic> values = data.values.toList();
 
-          return 
-          Container(
-            margin: EdgeInsets.only(top:10),
+          return Container(
+              margin: EdgeInsets.only(top: 10),
               height: MediaQuery.of(context).size.height * 0.4,
               width: MediaQuery.of(context).size.width,
               child: GridView.builder(
@@ -74,48 +95,53 @@ class _UserSearchesState extends State<UserSearches> {
                 itemBuilder: (context, index) {
                   Map<String, dynamic> data = documents[index].data();
                   String keys = data.keys.toList()[0];
-                  String values= data.values.toList()[0];
-                  
-          
-                  return 
-                  
-                  Container(
-                    width: MediaQuery.of(context).size.width*0.3,
+                  String values = data.values.toList()[0];
+
+                  return Container(
+                    width: MediaQuery.of(context).size.width * 0.3,
                     height: 200,
                     margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(color:Colors.white,
-                    borderRadius: BorderRadiusDirectional.circular(10)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadiusDirectional.circular(10)),
                     child: ListTile(
-                 
-                      
+                      onLongPress: () => _showDetails(title: keys.toString(), subtitle: values.toString()),
                       // leading: I
                       //con(Icons.search,color: Colors.blue.shade300,),
                       title: Container(
-                        margin: EdgeInsets.only(bottom:2),
+                        margin: EdgeInsets.only(bottom: 2),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                              Icon(Icons.search,color: Colors.blue.shade300,),
-                            
-                            Text(keys,style: GoogleFonts.poppins(fontWeight:FontWeight.w500),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                            Icon(
+                              Icons.search,
+                              color: Colors.blue.shade300,
+                            ),
+
+                            Text(
+                              keys,
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                             // IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
                           ],
                         ),
                       ),
-                    subtitle: Text(values.toString().replaceAll("**",""),style: GoogleFonts.poppins(fontWeight:FontWeight.w300),
-                    maxLines:6 ,
-                     overflow: TextOverflow.fade,),
-                    // trailing: IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
+                      subtitle: Text(
+                        values.toString().replaceAll("**", ""),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w300),
+                        maxLines: 6,
+                        overflow: TextOverflow.fade,
+                      ),
+                      // trailing: IconButton(onPressed: (){}, icon:Icon(Icons.more_vert)),
                     ),
                   );
                 },
-              )
-             
-              );
+              ));
         }
       },
     );
-
-
   }
 }
