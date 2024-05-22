@@ -1,6 +1,7 @@
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:application/main.dart';
+import 'package:application/widgets/SearchPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +136,27 @@ class _UserSearchesState extends State<UserSearches> {
                             fontWeight: FontWeight.w600, fontSize: 20),
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                             Navigator.push(
+                      context,
+                      PageRouteBuilder(pageBuilder:
+                          (context, animation, secondaryAnimation) {
+                        return SearchPage();
+                      }, transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.easeInOut;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      }));
+                          },
                           child: Text(
                             "See all",
                             style: GoogleFonts.abel(

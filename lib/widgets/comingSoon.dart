@@ -1,4 +1,4 @@
-import 'package:application/widgets/homepage.dart';
+import 'package:application/widgets/Homepage.dart';
 import 'package:flutter/material.dart';
 
 class ComingSoon extends StatefulWidget {

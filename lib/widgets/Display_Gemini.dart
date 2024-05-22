@@ -2,7 +2,7 @@
 
 import 'package:application/main.dart';
 import 'package:application/widgets/AppBlocs.dart';
-import 'package:application/widgets/homepage.dart';
+import 'package:application/widgets/Homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,8 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:provider/provider.dart';
 import 'package:typethis/typethis.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 
 class Display_Gemini extends StatefulWidget {
   const Display_Gemini({super.key});
@@ -108,11 +110,25 @@ class _Welcome_GeminiState extends State<Welcome_Gemini> {
                               topLeft: Radius.circular(20),
                               bottomRight: Radius.circular(20)),
                           color: Colors.blueAccent),
-                      child: Text(
-                        "Hey, ${FirebaseAuth.instance.currentUser?.displayName}",
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
-                      ),
+                      child: Text("World")
+  //                     BubbleSpecialThree(
+  // text: "Hey, ${FirebaseAuth.instance.currentUser?.displayName}",
+  // color: Color(0xFF1B97F3),
+  // tail: true,
+  // textStyle: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+  //   fontSize: 16
+  // ),
+
+
+                      
+                      
+                      
+                      // Text(
+                      //   "Hey, ${FirebaseAuth.instance.currentUser?.displayName}",
+                      //   style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                      // ),
                     ),
+              
                   ),
                 ),
                 Container(

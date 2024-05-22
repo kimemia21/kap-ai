@@ -1,7 +1,7 @@
 import 'package:application/firebase_options.dart';
 import 'package:application/widgets/AppBlocs.dart';
 import 'package:application/widgets/authentication/login.dart';
-import 'package:application/widgets/homepage.dart';
+import 'package:application/widgets/Homepage.dart';
 import 'package:application/widgets/splash.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,17 +36,18 @@ class MyApp extends StatelessWidget {
           title: 'Kaps Ai',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-          home: login()
-          // StreamBuilder<User?>(
-          //   stream: FirebaseAuth.instance.authStateChanges(),
-          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //     if (snapshot.hasData) {
-          //       return const HomePage();
-          //     } else {
-          //       return const OnBoardingPage();
-          //     }
-          //   },
-          // ),
+          home:
+      
+          StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return const HomePage();
+              } else {
+                return const OnBoardingPage();
+              }
+            },
+          ),
           ),
     );
   }

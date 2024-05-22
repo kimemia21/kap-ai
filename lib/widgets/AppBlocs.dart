@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class userProvider extends ChangeNotifier {
   bool showGemini = false;
@@ -20,3 +21,9 @@ class userProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+
+
+
+
+

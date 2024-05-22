@@ -4,7 +4,7 @@ import 'package:application/widgets/AppNavigations.dart';
 import 'package:application/widgets/ChatBot.dart';
 import 'package:application/widgets/Content.dart';
 import 'package:application/widgets/firebaseAutions/FirebaseFunctions.dart';
-import 'package:application/widgets/homepage.dart';
+import 'package:application/widgets/Homepage.dart';
 import 'package:application/widgets/splash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -197,10 +197,10 @@ class _loginState extends State<login> {
                   GestureDetector(
                     onTap: () {
                       Authentication.signInWithGoogle(context: context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return HomePage();
-                      }));
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context) {
+                      //   return HomePage();
+                      // }));
                     },
                     child: Container(
                       alignment: Alignment.center,

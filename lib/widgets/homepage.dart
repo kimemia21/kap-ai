@@ -186,7 +186,9 @@ class _MyHomePageState extends State<MyHomePage> {
             // padding: EdgeInsets.zero,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              FirebaseAuth.instance.signOut();
+            },
             leading: const Icon(Icons.logout, size: 20.0, color: Colors.black),
             title: Text("Log Out",
                 style: GoogleFonts.vt323(
