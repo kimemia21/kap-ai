@@ -71,7 +71,7 @@ class _SearchPageState extends State<SearchPage> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [Colors.white, Colors.blue.shade100],
+          colors: [Colors.grey.shade300, Colors.blue.shade100],
         )),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -141,12 +141,23 @@ class _SearchPageState extends State<SearchPage> {
                             return Container(
                               padding: EdgeInsets.all(5),
                               margin: EdgeInsets.only(bottom: 10),
-                              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadiusDirectional.circular(20)),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(20)),
                               child: ListTile(
-                                title: Text(keys),
-                                subtitle: Text(values.toString(),
-                                maxLines: 4,
-                                overflow:TextOverflow.ellipsis,),
+                                title: Text(keys,style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,),
+                                subtitle: Text(
+                                  values.toString().replaceAll("**", ""),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500),
+                                  maxLines: 7,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                // trailing:PopupMenuButton()
                               ),
                             );
                           },

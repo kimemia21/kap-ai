@@ -126,6 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(left: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              
               children: [
                 Container(
                     decoration: BoxDecoration(
@@ -145,6 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text(
                   "Hello, ${FirebaseAuth.instance.currentUser!.displayName}",
                   style: GoogleFonts.poppins(
+                    fontSize:20,
                       color: Colors.black, fontWeight: FontWeight.normal),
                 ),
                 SizedBox(height: 20.0),
@@ -154,45 +158,50 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             onTap: () {},
             leading: const Icon(CupertinoIcons.home,
-                size: 20.0, color: Colors.black),
+                size: 30.0, color: Colors.black54),
             title: Text("Home",
-                style: GoogleFonts.vt323(
-                    color: Colors.black, fontWeight: FontWeight.normal)),
+                style: GoogleFonts.poppins(
+                  fontSize:20,
+                    color: Colors.black54, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
           ),
           ListTile(
             onTap: () {},
             leading: const Icon(CupertinoIcons.person_fill,
-                size: 20.0, color: Colors.black),
+                size:  30.0, color: Colors.black54),
             title: Text("Profile",
-                style: GoogleFonts.vt323(
-                    color: Colors.black, fontWeight: FontWeight.normal)),
+                style: GoogleFonts.poppins(
+                      fontSize:20,
+                    color: Colors.black54, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
 
             // padding: EdgeInsets.zero,
           ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(CupertinoIcons.gear_alt_fill,
-                size: 20.0, color: Colors.black),
-            title: Text("Settings",
-                style: GoogleFonts.vt323(
-                    color: Colors.black, fontWeight: FontWeight.normal)),
-            textColor: Colors.black,
-            dense: true,
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(CupertinoIcons.gear_alt_fill,
+          //       size: 20.0, color: Colors.black),
+          //   title: Text("Settings",
+          //       style: GoogleFonts.vt323(
+          //           color: Colors.black, fontWeight: FontWeight.normal)),
+          //   textColor: Colors.black,
+          //   dense: true,
 
-            // padding: EdgeInsets.zero,
-          ),
+          //   // padding: EdgeInsets.zero,
+          // ),
           ListTile(
             onTap: () {
               FirebaseAuth.instance.signOut();
             },
-            leading: const Icon(Icons.logout, size: 20.0, color: Colors.black),
+            leading: const Icon(
+               
+              Icons.logout, size:  30.0, color: Colors.black54),
             title: Text("Log Out",
-                style: GoogleFonts.vt323(
-                    color: Colors.black, fontWeight: FontWeight.normal)),
+                style: GoogleFonts.poppins(
+                     fontSize:20,
+                    color: Colors.black54, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
 
