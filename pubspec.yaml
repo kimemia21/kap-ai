@@ -135,7 +135,9 @@ flutter:
     - assets/gif/generative.gif
     - assets/gif/final.gif
     - assets/gif/bot.gif
-    
+    - assets/gif/welcome.gif  
+    - assets/gif/all.gif 
+
     
 
 

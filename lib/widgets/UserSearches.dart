@@ -61,40 +61,38 @@ class _UserSearchesState extends State<UserSearches> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   TextButton(
-                  onPressed: () {},
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Colors.red.shade400,
-                        borderRadius: BorderRadiusDirectional.circular(10)),
-                    child: Text(
-                      "Delete",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, color: Colors.white),
+                  TextButton(
+                      onPressed: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Colors.red.shade400,
+                            borderRadius: BorderRadiusDirectional.circular(10)),
+                        child: Text(
+                          "Delete",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                      )),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Colors.blue.shade400,
+                          borderRadius: BorderRadiusDirectional.circular(10)),
+                      child: Text(
+                        'close',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
-                  )),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Colors.blue.shade400,
-                      borderRadius: BorderRadiusDirectional.circular(10)),
-                  child: Text(
-                    'close',
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                ),
-              )
-
-
-                ],),
-
-                         ],
+                  )
+                ],
+              ),
+            ],
           );
         },
       );
@@ -125,10 +123,28 @@ class _UserSearchesState extends State<UserSearches> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.only(
+                    top: 20,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("Recent Searches"), Text("See all")],
+                    children: [
+                      Text(
+                        "Recent",
+                        style: GoogleFonts.abel(
+                            fontWeight: FontWeight.w600, fontSize: 20),
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "See all",
+                            style: GoogleFonts.abel(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                              color: Colors.blue,
+                            ),
+                          ))
+                    ],
                   )),
               Container(
                   margin: EdgeInsets.only(top: 10),
@@ -179,7 +195,7 @@ class _UserSearchesState extends State<UserSearches> {
                           subtitle: Text(
                             values.toString().replaceAll("**", ""),
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w300),
+                                fontWeight: FontWeight.w500),
                             maxLines: 6,
                             overflow: TextOverflow.ellipsis,
                           ),

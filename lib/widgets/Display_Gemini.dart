@@ -48,6 +48,7 @@ class _Display_GeminiState extends State<Display_Gemini> {
                         );
                       }));
                   context.read<userProvider>().changeshowGemini(show: false);
+                  context.read<userProvider>().changeWelcomed();
                 },
                 icon: Icon(Icons.arrow_back)),
             centerTitle: true,
@@ -116,7 +117,9 @@ class _Welcome_GeminiState extends State<Welcome_Gemini> {
                 ),
                 Container(
                   child: Text(
-                    "Welcome Back",
+                    context.watch<userProvider>().isWelcomed
+                        ?"Welcome Back"
+                        : "",
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w600,
                         color: Colors.black54,
@@ -355,20 +358,20 @@ class _ChatWidgetState extends State<ChatWidget> {
 
       final text = response.text;
 
-       // Use context.read to update the provider without listening
-    context.read<userProvider>().changeResponse(response: text);
+      // Use context.read to update the provider without listening
+      context.read<userProvider>().changeResponse(response: text);
 
-    final id = DateTime.now().microsecondsSinceEpoch.toString();
-    
-    // Use context.read to access the provider's value without listening
-    final aiResponse = context.read<userProvider>().ai_response;
+      final id = DateTime.now().microsecondsSinceEpoch.toString();
 
-    collection.doc(id).set({
-      "createdOn":FieldValue.serverTimestamp(),
+      // Use context.read to access the provider's value without listening
+      final aiResponse = context.read<userProvider>().ai_response;
 
-      message.toString(): aiResponse.toString(), // Fix key-value assignment
-    });
-    print(aiResponse);
+      collection.doc(id).set({
+        "createdOn": FieldValue.serverTimestamp(),
+
+        message.toString(): aiResponse.toString(), // Fix key-value assignment
+      });
+      print(aiResponse);
 
       if (text == null) {
         _showError('Empty response.');

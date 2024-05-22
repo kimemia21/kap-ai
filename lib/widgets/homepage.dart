@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  MyHomePage(title: 'Gnovation Ai'),
+      home: MyHomePage(title: 'Gnovation Ai'),
     );
   }
 }
@@ -33,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   bool isOpened = false;
 
   final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
@@ -74,41 +73,44 @@ class _MyHomePageState extends State<MyHomePage> {
       child: IgnorePointer(
         ignoring: isOpened,
         child: Scaffold(
-          
-          backgroundColor: Colors.grey.shade200,
-          appBar: AppBar(
-            
-            shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
-          ),
-        ),
-          
-            centerTitle: true,
-            leading: IconButton(
-              icon: const Icon(Icons.menu_outlined),
-              onPressed: () => toggleMenu(),
+            backgroundColor: Colors.grey.shade200,
+            appBar: AppBar(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(20),
+                ),
+              ),
+              centerTitle: true,
+              leading: IconButton(
+                icon: const Icon(Icons.menu_outlined),
+                onPressed: () => toggleMenu(),
+              ),
+              actions: [
+                Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                        borderRadius: BorderRadiusDirectional.circular(20)),
+                    margin: EdgeInsets.all(10),
+                    width: 40,
+                    height: 40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadiusDirectional.circular(20),
+                      child: FirebaseAuth.instance.currentUser != null
+                          ? Image.network(
+                              "${FirebaseAuth.instance.currentUser!.photoURL}")
+                          : Image.asset("  assets/images/pngtreetwo.png"),
+                    ))
+              ],
+              title: Text(
+                widget.title,
+                style: GoogleFonts.roboto(fontWeight: FontWeight.bold),
+              ),
             ),
-            actions: [
-              Container(
-                  decoration: BoxDecoration(
-                      color: Colors.blueGrey,
-                      borderRadius: BorderRadiusDirectional.circular(20)),
-                  margin: EdgeInsets.all(10),
-                  width: 40,
-                  height: 40,
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusDirectional.circular(20),
-                    child:FirebaseAuth.instance.currentUser!=null?
-                    Image.network("${FirebaseAuth.instance.currentUser!.photoURL}"):
-                     Image.asset("  assets/images/pngtreetwo.png"),
-                  ))
-            ],
-            title: Text(widget.title,style: GoogleFonts.roboto(fontWeight:FontWeight.bold),),
-          ),
-          body:
-           Container(child: Display_Content())
-        ),
+            body: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [Colors.grey.shade200, Colors.blue.shade300])),
+                child: Display_Content())),
       ),
     );
   }
@@ -125,19 +127,20 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                  Container(
-                  decoration: BoxDecoration(
-                      color: Colors.blueGrey,
-                      borderRadius: BorderRadiusDirectional.circular(20)),
-                  margin: EdgeInsets.all(10),
-                  width: 40,
-                  height: 40,
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusDirectional.circular(20),
-                    child:FirebaseAuth.instance.currentUser!=null?
-                    Image.network("${FirebaseAuth.instance.currentUser!.photoURL}"):
-                     Image.asset("  assets/images/pngtreetwo.png"),
-                  )),
+                Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                        borderRadius: BorderRadiusDirectional.circular(20)),
+                    margin: EdgeInsets.all(10),
+                    width: 40,
+                    height: 40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadiusDirectional.circular(20),
+                      child: FirebaseAuth.instance.currentUser != null
+                          ? Image.network(
+                              "${FirebaseAuth.instance.currentUser!.photoURL}")
+                          : Image.asset("  assets/images/pngtreetwo.png"),
+                    )),
                 SizedBox(height: 16.0),
                 Text(
                   "Hello, ${FirebaseAuth.instance.currentUser!.displayName}",
@@ -174,7 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {},
             leading: const Icon(CupertinoIcons.gear_alt_fill,
                 size: 20.0, color: Colors.black),
-            title: Text("Settings",style: GoogleFonts.vt323(
+            title: Text("Settings",
+                style: GoogleFonts.vt323(
                     color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
@@ -184,7 +188,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.logout, size: 20.0, color: Colors.black),
-            title:  Text("Log Out",style: GoogleFonts.vt323(
+            title: Text("Log Out",
+                style: GoogleFonts.vt323(
                     color: Colors.black, fontWeight: FontWeight.normal)),
             textColor: Colors.black,
             dense: true,
